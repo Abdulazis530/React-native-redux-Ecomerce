@@ -26,7 +26,7 @@ module.exports = {
       detail: {
         type: Sequelize.TEXT
       },
-      image: {
+      images: {
         type: Sequelize.ARRAY(Sequelize.STRING)
       },
       likes: {
