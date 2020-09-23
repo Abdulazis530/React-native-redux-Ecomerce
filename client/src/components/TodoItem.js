@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         fontSize: 8
     },
     authorHeader: {
-        color: "green",
+        color: "aqua",
         fontSize: 16
     },
     message: {

@@ -28,5 +28,5 @@ const styles = StyleSheet.create({
     headerBox: {
         fontSize: 20,
         color: "brown"
-    }
+    },
 });

@@ -2,7 +2,7 @@ import { all, takeEvery, put, call } from 'redux-saga/effects';
 import * as actions from '../actions';
 import axios from 'axios'
 
-const API_URL = 'http://192.168.0.135:3001/api/'
+const API_URL = 'http://192.168.1.7:3001/api/'
 
 const request = axios.create({
     baseURL: API_URL,
@@ -58,6 +58,7 @@ function* postChat(payload) {
     let id = Date.now();
     yield put(actions.postChatRedux(id, name, message))
     try {
+        console.log(id,name,message)
         const data = yield call(add, PATH, { id, name, message });
         yield put(actions.postChatSuccess(data));
         //history.push('/chats')
