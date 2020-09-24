@@ -1,8 +1,11 @@
+require('dotenv').config()
 const express = require('express');
 const router = express.Router();
 const models = require('../models/index')
 const path = require('path');
+const secret = process.env.ACCESS_TOKEN_SECRET
 const API_SERVER = "http://localhost:3001";
+const helpers =require('../helpers/auth')
 
 
 /* GET products listing. */
@@ -45,7 +48,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', helpers.authenticateToken,async (req, res) => {
 
   try {
     const { title, rate, description, price, brand, detail,likes } = req.body
