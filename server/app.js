@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cors = require('cors');
 const fileUpload = require('express-fileupload');
 
-var productsRouter = require('./routes/adds');
+var productsRouter = require('./routes/products');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(fileUpload({ limits: { fileSize: 4 * 1024 * 1024 } }))
 
-app.use('/api/adds', productsRouter);
+app.use('/api/products', productsRouter);
 app.use('/api/users', usersRouter);
 
 module.exports = app;

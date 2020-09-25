@@ -17,6 +17,51 @@ export const loadChat = () => ({
 
 // end load chat data
 
+
+
+
+
+
+
+
+// start load adds data
+export const loadProductsSuccess = (products) => ({
+    type: 'LOAD_PRODUCTS_SUCCESS',
+    products,
+});
+export const loadProductsFailure = () => ({
+    type: 'LOAD_PRODUCTS_FAILURE',
+});
+
+export const loadProducts = (page, limit) => ({
+    type: 'LOAD_PRODUCTS', page, limit,
+});
+
+export const resetProducts = () => ({
+    type: 'RESET_PRODUCTS',
+});
+// end load adds data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // start post chat data
 
 export const postChatSuccess = (chats) => ({

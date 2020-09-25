@@ -4,7 +4,7 @@ const router = express.Router();
 const models = require('../models/index')
 const path = require('path');
 const secret = process.env.ACCESS_TOKEN_SECRET
-const API_SERVER = "http://localhost:3001";
+const API_SERVER = "http://192.168.1.13:3001";
 const helpers =require('../helpers/auth')
 
 

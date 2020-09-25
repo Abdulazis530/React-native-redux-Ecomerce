@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import TodoItem from './Chat'
 import { loadChat } from '../actions'
 import { connect } from 'react-redux'
