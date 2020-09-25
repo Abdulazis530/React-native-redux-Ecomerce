@@ -5,7 +5,7 @@ const models = require('../models/index')
 const path = require('path');
 const secret = process.env.ACCESS_TOKEN_SECRET
 const API_SERVER = "http://192.168.1.13:3001";
-const helpers =require('../helpers/auth')
+const helpers = require('../helpers/auth')
 
 
 /* GET products listing. */
@@ -26,6 +26,7 @@ router.get('/', async (req, res) => {
 
     const totalPage = Math.ceil(dataProducts.count / limit)
     const response = {
+      page,
       totalPage,
       data: dataProducts.rows
     }
@@ -48,23 +49,21 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', helpers.authenticateToken,async (req, res) => {
+router.post('/', helpers.authenticateToken, async (req, res) => {
 
   try {
-    const { title, rate, description, price, brand, detail,likes } = req.body
+    const { title, rate, description, price, brand, detail, likes } = req.body
     const images = req.files.image
 
-    const imageWithDirectory = []
+
     const renamedImages = images.map(image => {
       const newImageName = image.name.toLowerCase().replace("", Date.now()).split(' ').join('-')
-      imageWithDirectory.push(`${API_SERVER}/images/${newImageName}`)
+      /* moving each renamedImage to public/images */
+      image.mv(path.join(__dirname, "..", "public", "images", newImageName))
       return newImageName
     })
 
-    /* moving renamedImages to public/images */
-    for (let index = 0; index < images.length; index++) await images[index].mv(path.join(__dirname, "..", "public", "images", renamedImages[index]))
-
-    const adds = await models.AddsProducts.create({ 
+    const product = await models.AddsProducts.create({ 
         title,
         rate:Number(rate),
         description,
@@ -72,10 +71,10 @@ router.post('/', helpers.authenticateToken,async (req, res) => {
         brand,
         detail,
         likes,
-        images:imageWithDirectory,
+        images:renamedImages,
     })
 
-    res.json(adds);
+    res.json(product);
   } catch (error) {
     console.log(error)
     res.status(500).json(error)
@@ -112,6 +111,8 @@ router.delete('/:id', async (req, res) => {
         }
       })
       res.json(targetProducts);
+    } else {
+      return res.json({ message: "id not found" })
     }
 
   } catch (error) {

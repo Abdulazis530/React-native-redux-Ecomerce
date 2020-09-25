@@ -3,8 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
 
-import TodoBox from './src/components/TodoBox';
-import TodoForm from './src/containers/TodoForm';
+import Home from './src/components/Home';
 import rootReducer from './src/reducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -21,8 +20,7 @@ const store = createStore(rootReducer, enhancer);
 sagaMiddleware.run(rootSaga);
 
 const RootStack = createStackNavigator({
-  Home: {screen: TodoBox},
-  Add: {screen: TodoForm},
+  Home: {screen: Home},
   },{
     initialRouteName: 'Home',
   });

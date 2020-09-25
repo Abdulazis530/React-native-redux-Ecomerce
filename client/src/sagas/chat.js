@@ -1,19 +1,19 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 import * as actions from '../actions';
-import axios from 'axios'
+import axios from 'axios';
 
-const API_URL = 'http://192.168.1.13:3001/api/';
+const API_URL = 'http://192.168.1.10:3001/api/';
 
 const request = axios.create({
     baseURL: API_URL,
-    timeout: 1000
+    timeout: 1000,
 });
 
 const read = async (path) =>
     await request.get(path)
         .then(response => response.data)
         .catch(err => {
-            throw err
+            throw err;
         });
 
 
@@ -21,21 +21,7 @@ const add = async (path, params) =>
     await request.post(path, params)
         .then(response => response.data)
         .catch(err => {
-            throw err
-        });
-
-const update = async (path, params) =>
-    await request.put(path, params)
-        .then(response => response.data)
-        .catch(err => {
-            throw err
-        });
-
-const remove = async (path) =>
-    await request.delete(path)
-        .then(response => response.data)
-        .catch(err => {
-            throw err
+            throw err;
         });
 
 const read2 = async (path) =>
@@ -49,13 +35,15 @@ const PATH = 'products';
 
 // load
 function* loadProducts(payload) {
+    console.log(payload)
     const { limit, page } = payload;
     const QUERY_PATH = `${PATH}?limit=${limit}&page=${page}`;
     try {
         const data = yield call(read2, QUERY_PATH);
+        console.log(data)
         yield put(actions.loadProductsSuccess(data));
     } catch (error) {
-        console.log(error);
+        console.log('here error')
         yield put(actions.loadProductsFailure());
     }
 }
@@ -74,9 +62,9 @@ function* loadChat() {
 function* postChat(payload) {
     const { name, message } = payload;
     let id = Date.now();
-    yield put(actions.postChatRedux(id, name, message))
+    yield put(actions.postChatRedux(id, name, message));
     try {
-        console.log(id, name, message)
+        console.log(id, name, message);
         const data = yield call(add, PATH, { id, name, message });
         yield put(actions.postChatSuccess(data));
         //history.push('/chats')
@@ -86,28 +74,6 @@ function* postChat(payload) {
     }
 }
 
-function* deleteChat(payload) {
-    const { id } = payload;
-    yield put(actions.deleteChatRedux(id))
-    try {
-        const data = yield call(remove, `${PATH}/${id}`);
-        yield put(actions.deleteChatSuccess(data));
-    } catch (error) {
-        console.log(error);
-        yield put(actions.deleteChatFailure(id));
-    }
-}
-
-function* resendChat(payload) {
-    const { id, name, message } = payload;
-    try {
-        const data = yield call(add, PATH, { id, name, message });
-        yield put(actions.resendChatSuccess(id));
-    } catch (error) {
-        console.log(error);
-        yield put(actions.postChatFailure(id));
-    }
-}
 
 
 export default function* rootSaga() {
@@ -115,8 +81,6 @@ export default function* rootSaga() {
         takeEvery('LOAD_CHATS', loadChat),
         takeEvery('LOAD_PRODUCTS', loadProducts),
         takeEvery('ADD_CHAT', postChat),
-        takeEvery('REMOVE_CHAT', deleteChat),
-        takeEvery('RESEND_CHAT', resendChat),
     ]);
 }
 

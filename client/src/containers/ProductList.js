@@ -1,30 +1,33 @@
 import React, { Component } from 'react';
 import { loadProducts, resetProducts } from '../actions';
 import { connect } from 'react-redux';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View, Text } from 'react-native';
 import Product from '../components/Product';
 
 
 class ProductList extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             page: 1,
             hasMore: true,
-            limit: 3,
+            limit: 4,
         };
     }
     componentDidMount() {
-        this.props.loadProducts(this.state.page,this.state.limit);
+        console.log('here inside did mount');
+        this.props.loadProducts(this.state.page, this.state.limit);
     }
 
     componentWillUnmount() {
         this.props.resetProducts();
     }
     render() {
+        console.log('here inside render productlist component');
+        console.log(this.props.products);
         return (
-            <View style={styles.container}>
-                {/* <FlatList
+            <View >
+                <FlatList
                     data={this.props.products}
                     renderItem={({ item }) => <Product
                         id={item.id}
@@ -33,20 +36,17 @@ class ProductList extends Component {
                         price={item.price}
                         brand={item.brand}
                         detail={item.detail}
-                        image={item.image}
+                        images={item.images}
                         rate={item.rate}
                     />}
+                    numColumns={2}
                     keyExtractor={item => item.id.toString()}
-                /> */}
+                />
             </View>
         );
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});
+
 
 const mapStateToProps = (state) => ({
     products: state.products.data,
@@ -55,7 +55,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    LoadProducts: (page, limit) => dispatch(loadProducts(page, limit)),
+    loadProducts: (page, limit) => dispatch(loadProducts(page, limit)),
     resetProducts: () => dispatch(resetProducts()),
 
 });
