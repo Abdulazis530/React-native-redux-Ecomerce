@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet,Text } from 'react-native';
-import {Button} from 'native-base';
+import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import oneStar from '../assets/icons/1-star.png';
 import twoStar from '../assets/icons/2-star.png';
 import threeStar from '../assets/icons/3-star.png';
@@ -15,16 +14,16 @@ export default class Product extends React.Component {
   }
   render() {
     let icon;
-    if (this.props.rate === 1){
+    if (this.props.rate === 1) {
       icon = oneStar;
-    }else if(this.props.rate === 2){
+    } else if (this.props.rate === 2) {
       icon = twoStar;
-    }else if( this.props.rate === 3){
+    } else if (this.props.rate === 3) {
       icon = threeStar;
-    }else if( this.props.rate === 4){
+    } else if (this.props.rate === 4) {
       icon = fourStar;
-    }else{
-      icon= fiveStar;
+    } else {
+      icon = fiveStar;
     }
     return (
       <View style={styles.card}>
@@ -38,14 +37,14 @@ export default class Product extends React.Component {
         <View style={styles.content}>
           <Text style={styles.textDescription}>{this.props.description}</Text>
           <View style={styles.containerRate}>
-          <Image source={icon}/>
+            <Image source={icon} />
           </View>
           <Text style={styles.price}>{this.props.price}</Text>
         </View>
         <View style={styles.cardFooter}>
-        <Button small block warning style={styles.btn}>
+          <TouchableOpacity style={styles.btn}>
             <Text>Click Me!</Text>
-          </Button>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     flex: 1,
-    backgroundColor:'red'
+    backgroundColor: 'red'
   },
   textDescription: {
     fontWeight: 'bold',
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
   containerRate: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginVertical:2,
+    marginVertical: 2,
   },
   rates: {
     width: 20,
@@ -108,13 +107,17 @@ const styles = StyleSheet.create({
   },
   price: {
     textAlign: 'center',
-    marginVertical:2,
+    marginVertical: 2,
   },
-  cardFooter:{
-    marginTop:5
+  cardFooter: {
+    marginTop: 5
   },
-  btn:{
-    borderBottomLeftRadius:10,
-    borderBottomRightRadius:10,
+  btn: {
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    alignItems: 'center',
+    backgroundColor: '#F0AD4E',
+    padding: 8,
+
   }
 });

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {  StyleSheet, View } from 'react-native';
 import ProductList from '../containers/ProductList';
+
 export default class Home extends Component {
     render() {
         return (
