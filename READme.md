@@ -12,12 +12,12 @@
 
 ### SIGN IN AND SIGN UP SCREEN
 
-![display](client/assets/screenshot1.png)
+![display](client/src/assets/images/screenshot1.png)
 
 ### HOME AND ADD PRODUCT
 
-![display](client/assets/screenshot2.png)
+![display](client/src/assets/images/screenshot2.png)
 
 ### SEE DETAILS
 
-![display](client/assets/screenshot3.png)
+![display](client/src/assets/images/screenshot3.png)

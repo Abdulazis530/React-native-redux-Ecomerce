@@ -1,4 +1,5 @@
 const SERVER = 'http://192.168.1.12:3001/';
+import numToRupiah from '../helpers/rupiah';
 
 const products = (state = { totalPage: 0, data: [] }, action) => {
     switch (action.type) {
@@ -10,6 +11,7 @@ const products = (state = { totalPage: 0, data: [] }, action) => {
                 return {
                     ...item,
                     images: imagesWithDirection,
+                    price:numToRupiah(item.price),
                 };
             });
 

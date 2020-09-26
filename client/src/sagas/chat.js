@@ -43,6 +43,7 @@ function* loadProducts(payload) {
         console.log(data)
         yield put(actions.loadProductsSuccess(data));
     } catch (error) {
+        console.log(error)
         console.log('here error')
         yield put(actions.loadProductsFailure());
     }

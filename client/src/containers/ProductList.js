@@ -11,7 +11,7 @@ class ProductList extends Component {
         this.state = {
             page: 1,
             hasMore: true,
-            limit: 4,
+            limit:4,
         };
     }
     componentDidMount() {
