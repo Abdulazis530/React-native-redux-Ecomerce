@@ -1,4 +1,4 @@
-const SERVER = 'http://192.168.1.12:3001/';
+const SERVER = 'http://192.168.1.7:3001/';
 import numToRupiah from '../helpers/rupiah';
 
 const products = (state = { totalPage: 0, data: [] }, action) => {

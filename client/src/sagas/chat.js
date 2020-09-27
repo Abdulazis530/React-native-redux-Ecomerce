@@ -2,7 +2,7 @@ import { all, takeEvery, put, call } from 'redux-saga/effects';
 import * as actions from '../actions';
 import axios from 'axios';
 
-const API_URL = 'http://192.168.1.10:3001/api/';
+const API_URL = 'http://192.168.1.7:3001/api/';
 
 const request = axios.create({
     baseURL: API_URL,

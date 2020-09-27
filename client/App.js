@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
 
 import Home from './src/components/Home';
-import Header from './src/components/Header';
+import Header from './src/components/CustomHeader';
 import rootReducer from './src/reducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -24,14 +24,14 @@ const RootStack = createStackNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
-      headerTitle:()=><Header/>
+      headerShown: false,
     }
   },
 }, {
   initialRouteName: 'Home',
   defaultNavigationOptions: {
     headerTintColor: 'white',
-    headerStyle: { backgroundColor: '#459DDE', height: 120 },
+    headerStyle: { backgroundColor: '#459DDE' },
   }
 });
 
