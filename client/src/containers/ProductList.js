@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { loadProducts, resetProducts } from '../actions';
 import { connect } from 'react-redux';
-import { FlatList, StyleSheet, View, Text } from 'react-native';
+import { FlatList, StyleSheet, View, Text,ActivityIndicator,Dimensions } from 'react-native';
 import Product from '../components/Product';
 
 
@@ -10,8 +10,7 @@ class ProductList extends Component {
         super(props);
         this.state = {
             page: 1,
-            hasMore: true,
-            limit:5,
+            limit:4,
         };
     }
     componentDidMount() {
@@ -22,13 +21,24 @@ class ProductList extends Component {
     componentWillUnmount() {
         this.props.resetProducts();
     }
+    fetchData = () => {
+        if (this.state.page < this.props.totalPage) {
+            this.setState(
+                state => ({ page: state.page + 1 }),
+                () => {
+                    this.props.loadProducts(this.state.page, this.state.limit)
+                })
+        }
+    }
+
     render() {
-        console.log('here inside render productlist component');
-        console.log(this.props.products);
+
         return (
             <View >
                 <FlatList
                     data={this.props.products}
+                    onEndReached={this.fetchData}
+                    ListFooterComponent={this.renderFooter}
                     renderItem={({ item }) => <Product
                         id={item.id}
                         title={item.title}
@@ -41,6 +51,7 @@ class ProductList extends Component {
                     />}
                     numColumns={2}
                     keyExtractor={item => item.id.toString()}
+                    onEndReachedThreshold={1}
                 />
             </View>
         );
