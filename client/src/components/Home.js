@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, View,Text,Image } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import ProductList from '../containers/ProductList';
 import CustomHeader from './CustomHeader';
-import { Footer, FooterTab,Button,Icon } from 'native-base';
-import add from '../assets/icons/add.png';
+import { Footer, FooterTab, Button, Icon } from 'native-base';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default class Home extends Component {
     render() {
         return (
             <View style={styles.productBox}>
-               
+
 
                 <CustomHeader />
                 <View style={styles.content}>
@@ -19,16 +20,16 @@ export default class Home extends Component {
                 <Footer style={styles.footer}>
                     <FooterTab style={styles.footer}>
                         <Button vertical>
-                            <Icon name="apps" />
-                            <Text>Apps</Text>
+                        <MaterialIcons name={'photo'} color='white' size={30}/>
+                            <Text style={styles.whiteColor}>Feed</Text>
                         </Button>
                         <Button vertical>
-
-                            <Text>Camera</Text>
+                            <MaterialIcons name={'home'} color='white' size={30}/>
+                            <Text style={styles.whiteColor}>Home</Text>
                         </Button>
                         <Button vertical>
-                            <Icon active name="navigate" />
-                            <Text>Navigate</Text>
+                            <AntDesign name={'login'} color='white' size={30}/>
+                            <Text style={styles.whiteColor}>Log In</Text>
                         </Button>
                     </FooterTab>
                 </Footer>
@@ -47,14 +48,8 @@ const styles = StyleSheet.create({
     footer: {
         backgroundColor: '#459DDE',
     },
-    addIcon:{
-        position:'absolute',
-        backgroundColor:'black',
-        top:-100,
-        left:0,
-        width:100,
-        height:100,
-        zIndex:1
+    whiteColor:{
+        color:'white',
     }
 
 });
