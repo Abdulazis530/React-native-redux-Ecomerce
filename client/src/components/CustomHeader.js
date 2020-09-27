@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import hamburger from '../assets/icons/hamburger.png';
 import bell from '../assets/icons/bell.png';
-import search from '../assets/icons/search.png'
+import search from '../assets/icons/search.png';
 export default function CustomHeader() {
     return (
 
@@ -17,13 +17,13 @@ export default function CustomHeader() {
             </View>
             <View style={styles.searchBar}>
                 <View style={styles.searchIcon}>
-                    <Image source={search}  />
+                    <Image source={search} />
                 </View>
-                <TextInput style={{ height: 40, width: '90%', borderColor: '#459DDE', borderWidth: 1, backgroundColor: 'white', borderRadius: 10,paddingHorizontal:40 }} placeholder = "Search new item" underlineColorAndroid='transparent'/>
+                <TextInput style={styles.searchText} placeholder="Search new item" underlineColorAndroid="transparent" />
             </View>
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     header: {
@@ -55,16 +55,23 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         paddingBottom: 60,
+        borderBottomRightRadius:5,
+        borderBottomLeftRadius:5,
 
     },
     searchIcon: {
-        position:'absolute',
-        left:30,
-        top:10,
-        zIndex: 1
+        position: 'absolute',
+        left: 30,
+        top: 10,
+        zIndex: 1,
     },
-    placeholderStyle:{
-       backgroundColor:'red' 
-    }
-
-})
+    searchText: {
+        height: 40,
+        width: '90%',
+        borderColor: '#459DDE',
+        borderWidth: 1,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        paddingHorizontal: 40,
+    },
+});

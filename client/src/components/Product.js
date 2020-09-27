@@ -43,7 +43,7 @@ export default class Product extends React.Component {
         </View>
         <View style={styles.cardFooter}>
           <TouchableOpacity style={styles.btn}>
-            <Text>Click Me!</Text>
+            <Text style={styles.textWhite}>See Detail!</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -52,6 +52,7 @@ export default class Product extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  textWhite:{color:'white',fontWeight:'bold'},
   card: {
     flex: 0.5,
     borderRadius: 10,
@@ -89,7 +90,6 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     flex: 1,
-    backgroundColor: 'red'
   },
   textDescription: {
     fontWeight: 'bold',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     marginVertical: 2,
   },
   cardFooter: {
-    marginTop: 5
+    marginTop: 5,
   },
   btn: {
     borderBottomLeftRadius: 10,
@@ -119,5 +119,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0AD4E',
     padding: 8,
 
-  }
+  },
 });

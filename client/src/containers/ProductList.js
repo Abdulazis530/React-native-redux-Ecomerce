@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { loadProducts, resetProducts } from '../actions';
 import { connect } from 'react-redux';
-import { FlatList, StyleSheet, View, Text,ActivityIndicator,Dimensions } from 'react-native';
+import { FlatList, View } from 'react-native';
 import Product from '../components/Product';
 
 
@@ -19,6 +19,8 @@ class ProductList extends Component {
     }
 
     componentWillUnmount() {
+        console.log('here inside did UNmount');
+
         this.props.resetProducts();
     }
     fetchData = () => {
@@ -26,8 +28,8 @@ class ProductList extends Component {
             this.setState(
                 state => ({ page: state.page + 1 }),
                 () => {
-                    this.props.loadProducts(this.state.page, this.state.limit)
-                })
+                    this.props.loadProducts(this.state.page, this.state.limit);
+                });
         }
     }
 
