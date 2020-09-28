@@ -15,6 +15,7 @@ class ProductList extends Component {
     }
     componentDidMount() {
         console.log('here inside did mount');
+
         this.props.loadProducts(this.state.page, this.state.limit);
     }
 
@@ -34,7 +35,8 @@ class ProductList extends Component {
     }
 
     render() {
-
+        console.log('inside the productList')
+        console.log((this.props.navigation))
         return (
             <View >
                 <FlatList
@@ -50,6 +52,7 @@ class ProductList extends Component {
                         detail={item.detail}
                         images={item.images}
                         rate={item.rate}
+                        navigation={this.props.navigation}
                     />}
                     numColumns={2}
                     keyExtractor={item => item.id.toString()}

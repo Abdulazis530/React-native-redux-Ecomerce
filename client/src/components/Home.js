@@ -9,28 +9,29 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 export default class Home extends Component {
   render() {
     return (
-      <View style={styles.productBox}>
-          <CustomHeader />
-          <View style={styles.content}>
-              <ProductList />
-          </View>
 
-          <Footer style={styles.footer}>
-              <FooterTab style={styles.footer}>
-                  <Button vertical>
-                  <MaterialIcons name={'add'} color="white" size={30} onPress={() => this.props.navigation.replace('Add')}/>
-                      <Text style={styles.whiteColor}>Add Product</Text>
-                  </Button>
-                  <Button vertical>
-                      <MaterialIcons name={'home'} color="white" size={30}/>
-                      <Text style={styles.whiteColor}>Home</Text>
-                  </Button>
-                  <Button vertical>
-                      <AntDesign name={'logout'} color="white" size={30}/>
-                      <Text style={styles.whiteColor}>Log Out</Text>
-                  </Button>
-              </FooterTab>
-          </Footer>
+      <View style={styles.productBox}>
+        <CustomHeader />
+        <View style={styles.content}>
+          <ProductList navigation={this.props.navigation} />
+        </View>
+
+        <Footer style={styles.footer}>
+          <FooterTab style={styles.footer}>
+            <Button vertical>
+              <MaterialIcons name={'add'} color="white" size={30} onPress={() => this.props.navigation.replace('Add')} />
+              <Text style={styles.whiteColor}>Add Product</Text>
+            </Button>
+            <Button vertical>
+              <MaterialIcons name={'home'} color="white" size={30} />
+              <Text style={styles.whiteColor}>Home</Text>
+            </Button>
+            <Button vertical>
+              <AntDesign name={'logout'} color="white" size={30} />
+              <Text style={styles.whiteColor}>Log Out</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
       </View>
     );
   }
@@ -39,7 +40,7 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   productBox: {
     flex: 1,
-    backgroundColor:'#f4f4f4',
+    backgroundColor: '#f4f4f4',
   },
   content: {
     flex: 1,

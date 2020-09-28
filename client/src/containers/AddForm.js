@@ -9,7 +9,7 @@ export default class AddForm extends Component {
         return (
             <Container style={styles.headerColor}>
                 <Header style={styles.headerColor}>
-                    <Button transparent onPress={() => this.props.navigation.push('Home')}>
+                    <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                         <MaterialCommunityIcons name="arrow-left-thick" size={30} color="white" />
                     </Button>
                     <Body >
