@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import CarouselImage from './CarouselImageFix.js';
 import { Container, Header, Content, Card, CardItem, Body, Button, Left, Right } from 'native-base';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+
 export default class DetailProduct extends Component {
     componentDidMount() {
         console.log('iniside the detailProduct');
@@ -64,8 +67,9 @@ export default class DetailProduct extends Component {
                             </Body>
                         </CardItem>
                         <CardItem footer bordered >
-                            <Button block info iconLeft style={styles.button}>
-                                <Text style={styles.textIcon}>SUBMIT</Text>
+                            <Button block info iconLeft style={styles.button} onPress={() => this.props.navigation.navigate('Home')}>
+                                <MaterialCommunityIcons name="arrow-left-thick" size={30} color="white" />
+                                <Text style={styles.textIcon}>BACK</Text>
                             </Button>
                         </CardItem>
                     </Card>
@@ -107,5 +111,11 @@ const styles = StyleSheet.create({
         color: 'white',
         letterSpacing: 1,
 
+    },
+    textIcon: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginLeft: 5,
     },
 });
