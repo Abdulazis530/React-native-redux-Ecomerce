@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import CarouselImage from './CarouselImageFix';
 import oneStar from '../assets/icons/1-star.png';
 import twoStar from '../assets/icons/2-star.png';
 import threeStar from '../assets/icons/3-star.png';
@@ -33,7 +34,9 @@ export default class Product extends React.Component {
 
         </View>
         <View style={styles.cardImage}>
-          <Image source={{ uri: this.props.images[0] }} style={styles.image} resizeMode="contain" />
+          <CarouselImage images={this.props.images} />
+
+          {/* <Image source={{ uri: this.props.images[0] }} style={styles.image} resizeMode="contain" /> */}
         </View>
         <View style={styles.content}>
           <Text style={styles.textDescription}>{this.props.description}</Text>
@@ -55,7 +58,7 @@ export default class Product extends React.Component {
 const styles = StyleSheet.create({
   textWhite: { color: 'white', fontWeight: 'bold' },
   card: {
-    flex: 0.5,
+    flex: 1,
     borderRadius: 10,
     elevation: 3,
     backgroundColor: 'white',
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
     },
     shadowColor: '#333',
     shadowOpacity: 0.3,
-    height: 300,
+    height: 430,
     marginHorizontal: 5,
     marginVertical: 5,
   },
@@ -82,12 +85,14 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
   },
   cardImage: {
-    flex: 2,
+    flex: 1,
   },
   titleHeader: {
     marginVertical: 10,
     textAlign: 'center',
     color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
   },
   cardContent: {
     flex: 1,

@@ -10,7 +10,7 @@ class ProductList extends Component {
         super(props);
         this.state = {
             page: 1,
-            limit: 4,
+            limit: 2,
         };
     }
     componentDidMount() {
@@ -52,7 +52,6 @@ class ProductList extends Component {
                         rate={item.rate}
                         navigation={this.props.navigation}
                     />}
-                    numColumns={2}
                     keyExtractor={item => item.id.toString()}
                     onEndReachedThreshold={1}
                 />

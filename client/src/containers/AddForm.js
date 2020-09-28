@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput } from 'react-native';
-import { Button, Container, Content, Card, CardItem, Header, Body } from 'native-base';
+import { Button, Container, Content, Card, CardItem, Header, Body, Left, Right } from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 // arrow-left-thick
@@ -9,13 +9,15 @@ export default class AddForm extends Component {
         return (
             <Container style={styles.headerColor}>
                 <Header style={styles.headerColor}>
-                    <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
-                        <MaterialCommunityIcons name="arrow-left-thick" size={30} color="white" />
-                    </Button>
-                    <Body >
-                        <Text style={styles.headerText}>Header</Text>
+                    <Left style={{ flex: 1 }}>
+                        <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
+                            <MaterialCommunityIcons name="arrow-left-thick" size={30} color="white" />
+                        </Button>
+                    </Left>
+                    <Body style={{ flex: 2, alignItems: "center" }} >
+                        <Text style={styles.headerText}>Add New Product</Text>
                     </Body>
-
+                    <Right style={{ flex: 1 }} />
                 </Header>
                 <Content padder >
                     <Card >

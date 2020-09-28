@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 
+
 const { width } = Dimensions.get('window');
 const height = 0.6 * width;
 
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     },
     pagingIndicator: { flexDirection: 'row', position: 'absolute', bottom: 0, alignSelf: 'center' },
     pagingActiveText: {
-        color: 'white',
+        color: '#459DDE',
         margin: 3,
     },
 
