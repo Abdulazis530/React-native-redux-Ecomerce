@@ -10,7 +10,7 @@ class ProductList extends Component {
         super(props);
         this.state = {
             page: 1,
-            limit:4,
+            limit: 4,
         };
     }
     componentDidMount() {
@@ -35,8 +35,6 @@ class ProductList extends Component {
     }
 
     render() {
-        console.log('inside the productList')
-        console.log((this.props.navigation))
         return (
             <View >
                 <FlatList

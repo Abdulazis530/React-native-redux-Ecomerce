@@ -25,9 +25,7 @@ export default class Product extends React.Component {
     } else {
       icon = fiveStar;
     }
-    console.log('inside the product');
-    console.log((this.props.navigation));
-    console.log(this.props.route)
+
     return (
       <View style={styles.card}>
         <View style={styles.cardHeader}>
@@ -45,7 +43,7 @@ export default class Product extends React.Component {
           <Text style={styles.price}>{this.props.price}</Text>
         </View>
         <View style={styles.cardFooter}>
-          <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.replace('Detail',{data:this.props})} >
+          <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.replace('Detail', { data: this.props })} >
             <Text style={styles.textWhite}>See Detail!</Text>
           </TouchableOpacity>
         </View>
@@ -55,7 +53,7 @@ export default class Product extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  textWhite:{color:'white',fontWeight:'bold'},
+  textWhite: { color: 'white', fontWeight: 'bold' },
   card: {
     flex: 0.5,
     borderRadius: 10,

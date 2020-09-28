@@ -2,7 +2,7 @@ import { all, takeEvery, put, call } from 'redux-saga/effects';
 import * as actions from '../actions';
 import axios from 'axios';
 
-const API_URL = 'http://192.168.1.7:3001/api/';
+const API_URL = 'http://192.168.1.8:3001/api/';
 
 const request = axios.create({
     baseURL: API_URL,
@@ -35,16 +35,13 @@ const PATH = 'products';
 
 // load
 function* loadProducts(payload) {
-    console.log(payload)
     const { limit, page } = payload;
     const QUERY_PATH = `${PATH}?limit=${limit}&page=${page}`;
     try {
         const data = yield call(read2, QUERY_PATH);
-        console.log(data)
         yield put(actions.loadProductsSuccess(data));
     } catch (error) {
-        console.log(error)
-        console.log('here error')
+        console.log(error);
         yield put(actions.loadProductsFailure());
     }
 }

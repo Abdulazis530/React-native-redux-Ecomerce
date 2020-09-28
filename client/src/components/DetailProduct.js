@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, Image } from 'react-native'
-import { Container, Header, Content, Card, CardItem, Body,Button } from 'native-base';
+import { StyleSheet, Text } from 'react-native';
+import CarouselImage from './CarouselImageFix.js';
+import { Container, Header, Content, Card, CardItem, Body, Button, Left, Right } from 'native-base';
 export default class DetailProduct extends Component {
     componentDidMount() {
         console.log('iniside the detailProduct');
@@ -8,19 +9,20 @@ export default class DetailProduct extends Component {
 
     }
     render() {
-        const { brand, description, detail, id, images, price, rate, title } = this.props.navigation.state.params.data;
+        const { brand, description, detail, images, price, rate, title } = this.props.navigation.state.params.data;
         return (
             <Container>
-                <Header />
+                <Header style={styles.headerColor}>
+                    <Left style={{ flex: 1 }} />
+                    <Body style={{ flex: 1, alignItems: 'center' }}>
+                        <Text style={styles.headerText}>{title}</Text>
+                    </Body>
+                    <Right style={{ flex: 1 }} />
+                </Header>
+                <CarouselImage images={images} />
+
                 <Content padder>
                     <Card>
-                        <CardItem header bordered style={styles.card}>
-                            <Text style={[styles.description, styles.title]}>{title}</Text>
-                        </CardItem>
-                        <CardItem cardBody>
-                            <Image source={{ uri: images[2] }} style={styles.images} />
-                        </CardItem>
-
                         <CardItem bordered>
                             <Body>
                                 <Text style={styles.description}>Rate:</Text>
@@ -62,12 +64,14 @@ export default class DetailProduct extends Component {
                             </Body>
                         </CardItem>
                         <CardItem footer bordered >
-                        <Button block info iconLeft style={styles.button}>
+                            <Button block info iconLeft style={styles.button}>
                                 <Text style={styles.textIcon}>SUBMIT</Text>
                             </Button>
                         </CardItem>
                     </Card>
+
                 </Content>
+
             </Container>
         );
     }
@@ -93,6 +97,15 @@ const styles = StyleSheet.create({
     title: {
         color: 'black',
         fontSize: 20,
+    },
+    headerColor: {
+        backgroundColor: '#459DDE',
+    },
+    headerText: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: 'white',
+        letterSpacing: 1,
 
     },
-})
+});
