@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput } from 'react-native';
-import { Button, Container, Content, Card, CardItem, Header, Body, Left, Right } from 'native-base';
+import { Button, Container, Content, Card, CardItem, Header, Body, Left, Right, Picker } from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-// arrow-left-thick
+
+
+
 export default class AddForm extends Component {
     render() {
         return (
-            <Container style={styles.headerColor}>
+
+            <Container style={styles.container}>
+
                 <Header style={styles.headerColor}>
+
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                             <MaterialCommunityIcons name="arrow-left-thick" size={30} color="white" />
                         </Button>
                     </Left>
-                    <Body style={{ flex: 2, alignItems: "center" }} >
+                    <Body style={{ flex: 2, alignItems: 'center' }} >
                         <Text style={styles.headerText}>Add New Product</Text>
                     </Body>
                     <Right style={{ flex: 1 }} />
                 </Header>
-                <Content padder >
+                <Content padder style={{ marginTop: 20 }}>
                     <Card >
                         <CardItem bordered >
                             <View style={styles.body}>
@@ -31,9 +36,16 @@ export default class AddForm extends Component {
                                 </View>
                                 <View style={styles.containerInput}>
                                     <Text style={styles.label}>Description</Text>
-                                    <TextInput style={styles.textInput}
+                                    <TextInput style={[styles.textInput, { height: 100, textAlignVertical: "top" }]}
                                         placeholder="Description"
                                         multiline={true}
+                                    />
+                                </View>
+                                <View style={styles.containerInput}>
+                                    <Text style={styles.label}>Rate</Text>
+                                    <TextInput style={styles.textInput}
+                                        placeholder="Rate"
+                                        keyboardType="numeric"
                                     />
                                 </View>
 
@@ -41,9 +53,9 @@ export default class AddForm extends Component {
                                     <Text style={styles.label}>Price</Text>
                                     <TextInput style={styles.textInput}
                                         placeholder="Price"
+                                        keyboardType="numeric"
                                     />
                                 </View>
-
                                 <View style={styles.containerInput}>
                                     <Text style={styles.label}>Brand</Text>
                                     <TextInput style={styles.textInput}
@@ -53,7 +65,7 @@ export default class AddForm extends Component {
 
                                 <View style={styles.containerInput}>
                                     <Text style={styles.label}>Detail</Text>
-                                    <TextInput style={styles.textInput}
+                                    <TextInput style={[styles.textInput, { height: 100, textAlignVertical: "top" }]}
                                         placeholder="Detail"
                                         multiline={true}
                                     />
@@ -62,7 +74,7 @@ export default class AddForm extends Component {
                                     <Text style={styles.label}>Image</Text>
                                 </View>
                                 <View style={styles.containerAddImage}>
-                                    <Button block success iconLeft style={styles.button}>
+                                    <Button block iconLeft style={styles.buttonAddImages}>
                                         <MaterialCommunityIcons name="image-plus" size={30} color="white" />
                                         <Text style={styles.textIcon}>ADD IMAGES</Text>
                                     </Button>
@@ -70,7 +82,7 @@ export default class AddForm extends Component {
                             </View>
                         </CardItem>
                         <CardItem footer bordered>
-                            <Button block info iconLeft style={styles.button}>
+                            <Button block iconLeft style={styles.buttonSubmit}>
                                 <SimpleLineIcons name="check" size={30} color="white" />
                                 <Text style={styles.textIcon}>SUBMIT</Text>
                             </Button>
@@ -83,8 +95,11 @@ export default class AddForm extends Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#a2d5f2',
+    },
     headerColor: {
-        backgroundColor: '#459DDE',
+        backgroundColor: '#51adcf',
     },
     headerText: {
         fontWeight: 'bold',
@@ -93,8 +108,13 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         marginLeft: 10,
     },
-    button: {
+    buttonAddImages: {
         width: '100%',
+        backgroundColor: '#51adcf',
+    },
+    buttonSubmit: {
+        width: '100%',
+        backgroundColor: '#f08a5d',
     },
     body: {
         flex: 1,

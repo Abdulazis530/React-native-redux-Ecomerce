@@ -15,16 +15,16 @@ export default class DetailProduct extends Component {
         const { brand, description, detail, images, price, rate, title } = this.props.navigation.state.params.data;
         return (
             <Container>
-                <Header style={styles.headerColor}>
+                <Header iosBarStyle={'light-content'} style={styles.headerColor}>
                     <Left style={{ flex: 1 }} />
-                    <Body style={{ flex: 1, alignItems: 'center' }}>
+                    <Body style={{ flex: 2, alignItems: 'center' }}>
                         <Text style={styles.headerText}>{title}</Text>
                     </Body>
                     <Right style={{ flex: 1 }} />
                 </Header>
                 <CarouselImage images={images} />
 
-                <Content padder>
+                <Content padder style={{ backgroundColor: '#a2d5f2' }}>
                     <Card>
                         <CardItem bordered>
                             <Body>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     headerColor: {
-        backgroundColor: '#459DDE',
+        backgroundColor: '#51adcf',
     },
     headerText: {
         fontWeight: 'bold',

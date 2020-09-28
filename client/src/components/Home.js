@@ -16,18 +16,18 @@ export default class Home extends Component {
           <ProductList navigation={this.props.navigation} />
         </View>
 
-        <Footer style={styles.footer}>
+        <Footer style={styles.footerParent}>
           <FooterTab style={styles.footer}>
             <Button vertical>
-              <MaterialIcons name={'add'} color="white" size={30} onPress={() => this.props.navigation.replace('Add')} />
+              <MaterialIcons name={'add'} color="gold" size={30} onPress={() => this.props.navigation.navigate('Add')} />
               <Text style={styles.whiteColor}>Add Product</Text>
             </Button>
             <Button vertical>
-              <MaterialIcons name={'home'} color="white" size={30} />
+              <MaterialIcons name={'home'} color="gold" size={30} />
               <Text style={styles.whiteColor}>Home</Text>
             </Button>
             <Button vertical>
-              <AntDesign name={'logout'} color="white" size={30} />
+              <AntDesign name={'logout'} color="gold" size={25} />
               <Text style={styles.whiteColor}>Log Out</Text>
             </Button>
           </FooterTab>
@@ -40,13 +40,21 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   productBox: {
     flex: 1,
-    backgroundColor: '#f4f4f4',
+    backgroundColor: '#a2d5f2',
   },
   content: {
     flex: 1,
   },
+  footerParent: {
+    backgroundColor: 'gold',
+    borderTopRightRadius: 20,
+    elevation: 5,
+  },
   footer: {
-    backgroundColor: '#459DDE',
+    backgroundColor: '#51adcf',
+    paddingTop: 5,
+    borderTopLeftRadius: 50,
+    borderBottomRightRadius: 50,
   },
   whiteColor: {
     color: 'white',

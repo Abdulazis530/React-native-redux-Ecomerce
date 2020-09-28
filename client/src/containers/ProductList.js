@@ -14,14 +14,10 @@ class ProductList extends Component {
         };
     }
     componentDidMount() {
-        console.log('here inside did mount');
-
         this.props.loadProducts(this.state.page, this.state.limit);
     }
 
     componentWillUnmount() {
-        console.log('here inside did UNmount');
-
         this.props.resetProducts();
     }
     fetchData = () => {

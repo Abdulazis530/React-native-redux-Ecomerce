@@ -35,8 +35,6 @@ export default class Product extends React.Component {
         </View>
         <View style={styles.cardImage}>
           <CarouselImage images={this.props.images} />
-
-          {/* <Image source={{ uri: this.props.images[0] }} style={styles.image} resizeMode="contain" /> */}
         </View>
         <View style={styles.content}>
           <Text style={styles.textDescription}>{this.props.description}</Text>
@@ -46,7 +44,7 @@ export default class Product extends React.Component {
           <Text style={styles.price}>{this.props.price}</Text>
         </View>
         <View style={styles.cardFooter}>
-          <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.replace('Detail', { data: this.props })} >
+          <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('Detail', { data: this.props })} >
             <Text style={styles.text}>See Detail!</Text>
           </TouchableOpacity>
         </View>
@@ -56,7 +54,11 @@ export default class Product extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  text: { color: 'black', fontWeight: 'bold' },
+  text: {
+    color: 'grey',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
   card: {
     flex: 1,
     borderRadius: 10,
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
 
   },
   cardHeader: {
-    backgroundColor: '#459DDE',
+    backgroundColor: '#51adcf',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
@@ -90,17 +92,19 @@ const styles = StyleSheet.create({
   titleHeader: {
     marginVertical: 10,
     textAlign: 'center',
-    color: 'white',
+    color: '#fff',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 20,
   },
   cardContent: {
     flex: 1,
   },
   textDescription: {
     fontWeight: 'bold',
+    fontSize: 18,
     textAlign: 'center',
     marginVertical: 2,
+    color: '#51adcf',
   },
   containerRate: {
     flexDirection: 'row',
@@ -114,6 +118,9 @@ const styles = StyleSheet.create({
   price: {
     textAlign: 'center',
     marginVertical: 2,
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: '#ff9a76',
   },
   cardFooter: {
     marginTop: 5,
@@ -123,7 +130,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     alignItems: 'center',
     backgroundColor: 'gold',
-    padding: 8,
+    padding: 10,
 
   },
 });

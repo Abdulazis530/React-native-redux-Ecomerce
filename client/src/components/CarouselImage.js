@@ -57,7 +57,7 @@ export default class CarouselImage extends Component {
 
 
 const styles = StyleSheet.create({
-    container: { marginVertical: 25, width, height },
+    container: { marginVertical: 10, width, height },
     scroll: { width, height },
     image: {
         width,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     },
     pagingIndicator: { flexDirection: 'row', position: 'absolute', bottom: 0, alignSelf: 'center' },
     pagingActiveText: {
-        color: '#459DDE',
+        color: 'gold',
         margin: 3,
     },
 
