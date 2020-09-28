@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import CarouselImage from './CarouselImageFix';
+import CarouselImage from './CarouselImage';
 import oneStar from '../assets/icons/1-star.png';
 import twoStar from '../assets/icons/2-star.png';
 import threeStar from '../assets/icons/3-star.png';
@@ -47,7 +47,7 @@ export default class Product extends React.Component {
         </View>
         <View style={styles.cardFooter}>
           <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.replace('Detail', { data: this.props })} >
-            <Text style={styles.textWhite}>See Detail!</Text>
+            <Text style={styles.text}>See Detail!</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -56,7 +56,7 @@ export default class Product extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  textWhite: { color: 'white', fontWeight: 'bold' },
+  text: { color: 'black', fontWeight: 'bold' },
   card: {
     flex: 1,
     borderRadius: 10,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     alignItems: 'center',
-    backgroundColor: '#F0AD4E',
+    backgroundColor: 'gold',
     padding: 8,
 
   },

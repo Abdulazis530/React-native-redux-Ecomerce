@@ -1,25 +1,27 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import hamburger from '../assets/icons/hamburger.png';
-import bell from '../assets/icons/bell.png';
-import search from '../assets/icons/search.png';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+
+
 export default function CustomHeader() {
     return (
 
         <View >
             <View style={styles.header}>
-                <Image style={styles.iconHamburger} source={hamburger} />
+                <MaterialIcons style={styles.iconHamburger} name="menu" size={30} color="white" />
                 <View>
-                    <Text style={styles.headerText}>Toko Hape.</Text>
+                    <Text style={styles.headerText}>TokoHape.</Text>
                 </View>
-                <Image style={styles.iconBell} source={bell} />
+                <FontAwesome style={styles.iconBell} name="bell" size={20} color="gold" />
                 <TextInput />
             </View>
             <View style={styles.searchBar}>
                 <View style={styles.searchIcon}>
-                    <Image source={search} />
+                    <FontAwesome name="search" size={20} color="gold" />
                 </View>
-                <TextInput style={styles.searchText} placeholder="Search new item" underlineColorAndroid="transparent" />
+                <TextInput style={styles.searchText} placeholder="Search Product" underlineColorAndroid="transparent" />
             </View>
         </View>
     );
@@ -38,10 +40,10 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 25,
         color: 'white',
         letterSpacing: 1,
-        marginLeft: 10,
+        marginLeft: 100,
     },
     iconBell: {
         position: 'absolute',
@@ -55,8 +57,8 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         paddingBottom: 60,
-        borderBottomRightRadius:5,
-        borderBottomLeftRadius:5,
+        borderBottomRightRadius: 5,
+        borderBottomLeftRadius: 5,
 
     },
     searchIcon: {

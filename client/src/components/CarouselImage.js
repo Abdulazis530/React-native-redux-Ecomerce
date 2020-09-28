@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 
-const { width } = Dimensions.get("window") * 0.1;
-console.log(width)
-const height = width;
+
+const { width } = Dimensions.get('window');
+const height = 0.6 * width;
 
 
 export default class CarouselImage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            images: [
-                { image: 'http://192.168.1.8:3001/images/1601027840856androidstudio.jpeg', id: 1 },
-
-                { image: 'http://192.168.1.12:3001/images/1601027840856indomi.jpeg', id: 2 },
-                { image: 'http://192.168.1.12:3001/images/1601027840856iphones.jpg', id: 3 }
-            ],
+            images: this.props.images,
             currentImage: 0,
         };
     }
@@ -29,25 +24,26 @@ export default class CarouselImage extends Component {
     render() {
 
         return (
-            <View style={{ marginTop: 50, width, height }}>
+            <View style={styles.container}>
                 <ScrollView
                     pagingEnabled
                     horizontal
-                    style={{ width, height }}
+                    style={styles.scroll}
                     onScroll={this.change}
                     showsHorizontalScrollIndicator={false}
+                    centerContent={true}
                 >
 
                     {this.state.images.map((image, index) => (
                         <Image
                             key={index}
-                            source={{ uri: image.image }}
+                            source={{ uri: image }}
                             style={styles.image}
                         />
                     ))}
                 </ScrollView>
                 <View style={styles.pagingIndicator}>
-                    {this.state.images.map((i, k) => (<Text key={k} style={k == this.state.currentImage ? styles.pagingActiveText : styles.pagingText}>
+                    {this.state.images.map((i, k) => (<Text key={k} style={k === this.state.currentImage ? styles.pagingActiveText : styles.pagingText}>
                         ⬤
                     </Text>
                     ))
@@ -61,10 +57,13 @@ export default class CarouselImage extends Component {
 
 
 const styles = StyleSheet.create({
+    container: { marginVertical: 25, width, height },
+    scroll: { width, height },
     image: {
         width,
         height,
-        resizeMode: 'cover',
+        resizeMode: 'contain',
+        paddingRight: 50,
     },
     pagingText: {
         color: '#888',
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     },
     pagingIndicator: { flexDirection: 'row', position: 'absolute', bottom: 0, alignSelf: 'center' },
     pagingActiveText: {
-        color: '#fff',
+        color: '#459DDE',
         margin: 3,
     },
 
