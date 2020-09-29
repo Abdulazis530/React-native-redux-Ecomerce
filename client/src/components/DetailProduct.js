@@ -17,7 +17,7 @@ export default class DetailProduct extends Component {
             <Container>
                 <Header iosBarStyle={'light-content'} style={styles.headerColor}>
                     <Left style={{ flex: 1 }} />
-                    <Body style={{ flex: 2, alignItems: 'center' }}>
+                    <Body style={{ flex: 3, alignItems: 'center' }}>
                         <Text style={styles.headerText}>{title}</Text>
                     </Body>
                     <Right style={{ flex: 1 }} />
