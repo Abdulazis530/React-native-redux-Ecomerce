@@ -4,12 +4,10 @@ import {
     StyleSheet,
     TouchableOpacity,
     View,
-    FlatList,
-    Text
+    Text,
 } from 'react-native';
-import { Button } from 'native-base'
+import { Button } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
