@@ -5,7 +5,7 @@ import CustomHeader from './CustomHeader';
 import { Footer, FooterTab, Button } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
+import ImagePicker from './ImagePickerTest'
 export default class Home extends Component {
   render() {
     return (
@@ -13,7 +13,8 @@ export default class Home extends Component {
       <View style={styles.productBox}>
         <CustomHeader />
         <View style={styles.content}>
-          <ProductList navigation={this.props.navigation} />
+          {/* <ProductList navigation={this.props.navigation} /> */}
+          <ImagePicker />
         </View>
 
         <Footer style={styles.footerParent}>
