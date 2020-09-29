@@ -5,10 +5,13 @@ import {
     TouchableOpacity,
     View,
     FlatList,
+    Text
 } from 'react-native';
+import { Button } from 'native-base'
 import ImagePicker from 'react-native-image-picker';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 export default class App extends React.Component {
@@ -16,7 +19,7 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            avatarSource: [{ uri: null }],
+            avatarSource: [],
         };
         this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
     }
@@ -42,7 +45,7 @@ export default class App extends React.Component {
                 console.log('User tapped custom button: ', response.customButton);
             } else {
                 this.setState(state => ({
-                    avatarSource: [response, ...state.avatarSource],
+                    avatarSource: [...state.avatarSource, response],
                 }));
                 console.log(this.state);
             }
@@ -57,59 +60,59 @@ export default class App extends React.Component {
     }
 
     render() {
+
         return (
-            <View style={styles.container}>
-                <FlatList
-                    contentContainerStyle={styles.wraper}
-                    horizontal={true}
-                    data={this.state.avatarSource}
-                    renderItem={({ item }) =>
+            <View >
+                <View style={[styles.containerAddImage, { marginBottom: 20 }]} >
+                    <Button block iconLeft style={styles.buttonAddImages} onPress={this.selectPhotoTapped.bind(this)}>
+                        <MaterialCommunityIcons name="image-plus" size={30} color="white" />
+                        <Text style={styles.textIcon}>ADD IMAGES</Text>
+                    </Button>
+                </View>
+                <View style={styles.container}>
+                    {this.state.avatarSource.length > 0 ? this.state.avatarSource.map((image, index) => (
                         <View>
-
-                            <View
-                                style={[styles.avatar, styles.avatarContainer]}>
-                                {item.uri === null ? (
-                                    <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-                                        <MaterialIcons name={'add-a-photo'} color="white" size={50} />
-                                    </TouchableOpacity>
-                                ) : (
-                                        <View>
-                                            <TouchableOpacity style={styles.cancel} onPress={() => this.handleTest(item)} value={item}>
-                                                <FontAwesome name={'remove'} color="red" size={30} />
-                                            </TouchableOpacity>
-                                            <Image style={[styles.avatar, styles.imageStyle]} source={{ uri: item.uri }} />
-                                        </View>
-                                    )}
-                            </View>
-
+                            <TouchableOpacity style={styles.cancel} onPress={() => this.handleTest(image)}>
+                                <FontAwesome name={'remove'} color="red" size={30} />
+                            </TouchableOpacity>
+                            <Image style={[styles.avatar, styles.imageStyle]} source={{ uri: image.uri }} />
 
                         </View>
+                    ))
+                        : <View style={[styles.avatar, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
+                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>Put Your Image Here</Text>
+                        </View>
+
                     }
-                    keyExtractor={(item, index) => index.toString()}
-                    showsHorizontalScrollIndicator={true}
-                />
+                </View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    // wraper: {
-    //     marginHorizontal: 1,
-    // },
+
     container: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
+        flexWrap: 'wrap',
         alignItems: 'center',
         borderWidth: 5,
         borderRadius: 10,
         borderStyle: 'dashed',
         borderColor: 'rgb(255,140,0)',
-        position: 'absolute',
-        top: 100,
-        marginHorizontal: 5,
+        backgroundColor: 'rgba(255, 215, 0, 0.5)',
 
+    },
+    textIcon: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginLeft: 5,
+    },
+    containerAddImage: {
+        flex: 1,
+        width: '100%',
 
     },
     avatarContainer: {
@@ -117,10 +120,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255,215,0,0.5)',
-        marginVertical: 10,
-        marginHorizontal: 5,
-
+        backgroundColor: 'rgba(255,215,0,0.4)',
+        marginVertical: 5,
     },
     avatar: {
         width: 150,
@@ -130,11 +131,16 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderWidth: 2,
         resizeMode: 'cover',
+        marginHorizontal: 10,
+        marginVertical: 10
     },
     cancel: {
         position: 'absolute',
-        top: -10,
-        right: -10,
+        top: -5,
+        right: 0,
         zIndex: 10
+    },
+    buttonAddImages: {
+        backgroundColor: '#51adcf',
     }
 });

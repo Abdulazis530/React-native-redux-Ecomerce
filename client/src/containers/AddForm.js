@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput } from 'react-native';
 import { Button, Container, Content, Card, CardItem, Header, Body, Left, Right, Picker } from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import ImagePicker from '../components/ImagePickerTest'
 
 
 
@@ -124,25 +125,21 @@ export default class AddForm extends Component {
                                     </Picker>
 
                                 </View>
-                                <View style={styles.containerInput}>
-                                    <Text style={styles.label}>Image</Text>
-                                </View>
-                                <View style={styles.containerAddImage}>
-                                    <Button block iconLeft style={styles.buttonAddImages}>
-                                        <MaterialCommunityIcons name="image-plus" size={30} color="white" />
-                                        <Text style={styles.textIcon}>ADD IMAGES</Text>
-                                    </Button>
-                                </View>
+                                <ImagePicker />
+
                             </View>
                         </CardItem>
                         <CardItem footer bordered>
+
                             <Button block iconLeft style={styles.buttonSubmit} onPress={this.handleSubmit}>
                                 <SimpleLineIcons name="check" size={30} color="white" />
                                 <Text style={styles.textIcon}>SUBMIT</Text>
                             </Button>
                         </CardItem>
                     </Card>
+
                 </Content>
+
             </Container>
         );
     }
@@ -162,10 +159,6 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         marginLeft: 10,
     },
-    buttonAddImages: {
-        width: '100%',
-        backgroundColor: '#51adcf',
-    },
     buttonSubmit: {
         width: '100%',
         backgroundColor: '#f08a5d',
@@ -178,11 +171,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
     },
-    containerAddImage: {
-        flexDirection: 'row',
-        flex: 1,
-        marginTop: 30,
-    },
+
     textInput: {
         borderColor: '#CCCCCC',
         borderWidth: 1,
