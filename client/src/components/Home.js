@@ -15,28 +15,15 @@ import { logOut } from '../actions';
 
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      token: '',
-    };
-  }
 
-  componentWillMount() {
-    console.log('willmount')
-    getData()
-      .then(res => this.setState({ token: res }))
-
-  }
   handleLogOut = async () => {
     console.log('log out pressed');
-    this.props.logOut(this.state.token);
-    this.setState(state => ({ token: '' }))
-
+    this.props.logOut(this.props.token);
   }
 
+  //if cannot navigation into the see detail you need to add super above
   render() {
-    console.log('token inside render home:', this.state.token);
+    console.log('token inside render home:', this.props.token);
     return (
 
       <View style={styles.productBox}>
@@ -48,7 +35,7 @@ class Home extends Component {
         </View>
 
         <Footer style={styles.footerParent}>
-          {this.state.token ?
+          {this.props.token ?
             <FooterTab style={styles.footer}>
               <Button vertical onPress={() => this.props.navigation.navigate('Add')}>
                 <MaterialIcons name={'add'} color="gold" size={30} />
@@ -151,12 +138,16 @@ const styles = StyleSheet.create({
 });
 
 
+const mapStateToProps = (state) => ({
+  token: state.users.token,
+
+});
 const mapDispatchToProps = (dispatch) => ({
   logOut: (token) => dispatch(logOut(token)),
 
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Home);

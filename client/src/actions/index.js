@@ -7,7 +7,16 @@ export const logIn = (email, password, navigation) => ({
     navigation,
 });
 
+export const logInSuccess = (token) => ({
+    type: 'LOG_IN_SUCCESS',
+    token
+});
+export const logInFail = () => ({
+    type: 'LOG_IN_FAILED',
+});
+
 /*end of login */
+
 
 /* Sign Up */
 export const signUpSuccess = response => ({
@@ -27,6 +36,17 @@ export const signUpFailed = response => ({
 
 /*end of Sign Up */
 
+/******** Log Out ************/
+export const logOut = (token) => ({
+    type: 'LOG_OUT', token,
+});
+export const logOutSuccess = () => ({
+    type: 'LOG_OUT_SUCCESS',
+});
+export const logOutFail = () => ({
+    type: 'LOG_OUT_FAILED',
+});
+
 
 // start load adds data
 export const loadProductsSuccess = (products) => ({
@@ -45,12 +65,6 @@ export const resetProducts = () => ({
     type: 'RESET_PRODUCTS',
 });
 // end load adds data
-
-
-/******** Log Out ************/
-export const logOut = (token) => ({
-    type: 'LOG_OUT', token
-})
 
 
 
@@ -86,35 +100,4 @@ export const postChatRedux = (id, name, message) => ({
 
 export const postChat = (name, message) => ({
     type: 'ADD_CHAT', name, message,
-});
-
-// start delete chat data
-
-export const deleteChatRedux = (id) => ({
-    type: 'DELETE_CHAT', id,
-});
-
-export const deleteChatSuccess = (chats) => ({
-    type: 'DELETE_CHAT_SUCCESS',
-    chats,
-});
-
-export const deleteChatFailure = () => ({
-    type: 'DELETE_CHAT_FAILURE',
-});
-
-
-export const deleteChat = (id) => ({
-    type: 'REMOVE_CHAT', id,
-});
-
-
-// end delete chat data
-
-export const resendChatSuccess = (id) => ({
-    type: 'RESEND_CHAT_SUCCESS', id,
-});
-
-export const resendChat = (id, name, message) => ({
-    type: 'RESEND_CHAT', id, name, message,
 });

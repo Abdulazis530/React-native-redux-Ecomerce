@@ -93,12 +93,13 @@ function* logIn(payload) {
     const { email, password, navigation } = payload;
     try {
         const response = yield call(logInUser, `${PATH_USER}/login`, { email, password });
-        console.log('login:', response)
         storeData(response.token);
+        yield put(actions.logInSuccess(response.token));
         navigation.navigate('Home');
     } catch (error) {
         console.log(error);
         alert('Email or Password wrong')
+        yield put(actions.logInFail());
         navigation.navigate('LogIn');
 
     }
@@ -112,10 +113,12 @@ function* logout(payload) {
 
         if (response.logout) {
             removeToken();
+            yield put(actions.logOutSuccess());
         }
 
     } catch (error) {
         console.log(error);
+        yield put(actions.logOutFail());
         alert('Something went wrong')
     }
 }
