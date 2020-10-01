@@ -18,10 +18,33 @@ export const loadChat = () => ({
 // end load chat data
 
 
+//Login
 
+export const logIn = data => ({
+    type: 'LOGIN',
+    data,
+});
 
+//end of login
 
+//Sign Up
 
+export const signUpSuccess = response => ({
+    type: 'SIGNUP_SUCESS',
+    response,
+});
+
+export const signUp = data => ({
+    type: 'SIGNUP',
+    data,
+});
+
+export const signUpFailed = response => ({
+    type: 'SIGNUP_FAILED',
+    response,
+});
+
+//end of login
 
 
 // start load adds data

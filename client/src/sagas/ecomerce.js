@@ -1,8 +1,10 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 import * as actions from '../actions';
 import axios from 'axios';
+import { storeData, getData } from '../helpers/asyncStorageHelper';
 
-const API_URL = 'http://192.168.1.10:3001/api/';
+
+const API_URL = 'http://192.168.1.8:3001/api/';
 
 const request = axios.create({
     baseURL: API_URL,
@@ -31,7 +33,23 @@ const read2 = async (path) =>
             throw err;
         });
 
-const PATH = 'products';
+
+const logInUser = async (path, params) =>
+    await request.post(path, params)
+        .then(response => response.data)
+        .catch(err => {
+            throw err;
+        })
+
+
+// const signUpUser = async (path) =>
+// await request.get(path)
+//     .then(response => response.data)
+//     .catch(err => {
+//         throw err;
+//     });
+
+let PATH = 'products';
 
 // load
 function* loadProducts(payload) {
@@ -50,6 +68,7 @@ function* loadChat() {
 
     try {
         const data = yield call(read, PATH);
+
         yield put(actions.loadChatSuccess(data));
     } catch (error) {
         console.log(error);
@@ -57,28 +76,43 @@ function* loadChat() {
     }
 }
 
-function* postChat(payload) {
-    const { name, message } = payload;
-    let id = Date.now();
-    yield put(actions.postChatRedux(id, name, message));
+
+
+let PATH_USER = 'users';
+
+
+function* logIn(payload) {
+    const { data: { email, password } } = payload;
     try {
-        console.log(id, name, message);
-        const data = yield call(add, PATH, { id, name, message });
-        yield put(actions.postChatSuccess(data));
-        //history.push('/chats')
+        const response = yield call(logInUser, `${PATH_USER}/login`, { email, password });
+        storeData(response.token)
     } catch (error) {
         console.log(error);
-        yield put(actions.postChatFailure(id));
+        alert('Email or Password wrong')
     }
 }
 
+// function* signUp(payload) {
+//     const { data:{email, password,retypepassword} } = payload;
+
+//     const data = yield call(signUpUser, PATH_USER , {email, password });
+//     try {
+//         console.log(email, password,retypepassword);
+//         yield put(actions.signUpSuccess(data));
+//         //history.push('/chats')
+//     } catch (error) {
+//         console.log(error);
+//         yield put(actions.signUpFailed(data));
+//     }
+// }
 
 
 export default function* rootSaga() {
     yield all([
         takeEvery('LOAD_CHATS', loadChat),
         takeEvery('LOAD_PRODUCTS', loadProducts),
-        takeEvery('ADD_CHAT', postChat),
+        takeEvery('LOGIN', logIn),
+        // takeEvery('SIGNUP',signUp)
     ]);
 }
 

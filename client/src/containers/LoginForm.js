@@ -4,9 +4,11 @@ import { Button, Container, Content, Card, CardItem, Header, Body, Left, Right, 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { logIn } from '../actions';
+import { connect } from 'react-redux';
 
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +18,7 @@ export default class LoginForm extends Component {
         };
     }
     handleChangeEmail = (value) => {
-        console.log(value)
+        console.log(value);
         this.setState({ email: value });
     }
 
@@ -26,11 +28,12 @@ export default class LoginForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-
+        console.log(this.props.navigation)
         console.log(this.state)
+        this.props.logIn(this.state);
+        console.log('tayo')
     }
     toggleEye = () => {
-        console.log('clicked')
         this.setState(state => ({
             showPassword: !state.showPassword,
         }))
@@ -162,5 +165,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 10,
         bottom: 10,
-    }
+    },
 });
+
+const mapDispatchToProps = (dispatch) => ({
+    logIn: (data) => dispatch(logIn(data)),
+
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(LoginForm);

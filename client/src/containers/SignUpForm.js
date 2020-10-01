@@ -11,7 +11,7 @@ export default class SignUp extends Component {
         this.state = {
             email: '',
             password: '',
-            retypePassword: '',
+            retypepassword: '',
             showPassword: false,
             showRetypePassword: false,
         };
@@ -24,7 +24,7 @@ export default class SignUp extends Component {
         this.setState({ password: value });
     }
     handleChangeRetypePassword = (value) => {
-        this.setState({ retypePassword: value });
+        this.setState({ retypepassword: value });
     }
 
 

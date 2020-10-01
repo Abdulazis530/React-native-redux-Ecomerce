@@ -16,8 +16,8 @@ export default class Home extends Component {
         <CustomHeader />
         <View style={styles.content}>
           {/* <ProductList navigation={this.props.navigation} /> */}
-          {/* <LoginForm /> */}
-          <SignUpForm />
+          <LoginForm navigation={this.props.navigation} />
+          {/* <SignUpForm /> */}
         </View>
 
         <Footer style={styles.footerParent}>

@@ -11,7 +11,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from './src/sagas/chat';
+import rootSaga from './src/sagas/ecomerce';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -28,12 +28,14 @@ const RootStack = createStackNavigator({
       headerShown: false,
     },
   },
-  Add: {screen: AddForm,
+  Add: {
+    screen: AddForm,
     navigationOptions: {
       headerShown: false,
     },
   },
-  Detail: {screen: DetailProduct,
+  Detail: {
+    screen: DetailProduct,
     navigationOptions: {
       headerShown: false,
     },

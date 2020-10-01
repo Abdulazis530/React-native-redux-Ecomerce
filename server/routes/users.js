@@ -42,8 +42,10 @@ router.post('/register', async (req, res, next) => {
         password,
         token
       })
-
-      res.status(201).json(result)
+      responese.data = { email }
+      response.token = token
+      responese.message = 'Log In Success'
+      res.status(201).json(response)
     } catch (error) {
       console.log(error)
       res.status(500).json(response)
@@ -60,6 +62,7 @@ router.post('/login', async (req, res, next) => {
 
   let response = { data: {}, token: null, message: "" }
   const { email, password } = req.body
+  console.log(email, password)
 
   try {
     const user = await models.Users.findOne({
@@ -69,8 +72,8 @@ router.post('/login', async (req, res, next) => {
     })
     /*check if email realy stored in db*/
     if (!user) {
-      response.message = 'Email or password wrong!'
-      return res.status(200).json(response)
+      response.message = 'Email has been used'
+      return res.status(500).json(response)
     }
 
     const check = await bcrypt.compare(password, user.password)
