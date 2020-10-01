@@ -48,9 +48,9 @@ class LoginForm extends Component {
         }
 
         if (this.state.email && this.state.password) {
-            this.props.logIn(this.state);
-        }
+            this.props.logIn(this.state.email, this.state.password, this.props.navigation);
 
+        }
     }
     toggleEye = () => {
         this.setState(state => ({
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     containerButton: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     textInput: {
@@ -194,12 +194,12 @@ const styles = StyleSheet.create({
         top: 10,
         left: 80,
         fontSize: 12,
-        color: 'red'
-    }
+        color: 'red',
+    },
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    logIn: (data) => dispatch(logIn(data)),
+    logIn: (email, password, navigation) => dispatch(logIn(email, password, navigation)),
 
 });
 

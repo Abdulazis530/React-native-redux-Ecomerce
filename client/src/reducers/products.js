@@ -4,8 +4,6 @@ import numToRupiah from '../helpers/rupiah';
 const products = (state = { totalPage: 0, data: [] }, action) => {
     switch (action.type) {
         case 'LOAD_PRODUCTS_SUCCESS':
-            console.log('INSIDE LOAD_SUCCES REDUCER');
-
             const modifiedData = action.products.data.map(item => {
                 const imagesWithDirection = item.images.map(image => `${SERVER}images/${image}`);
                 return {
@@ -14,7 +12,6 @@ const products = (state = { totalPage: 0, data: [] }, action) => {
                     price: numToRupiah(item.price),
                 };
             });
-
             return {
                 totalPage: action.products.totalPage,
                 data: [...state.data, ...modifiedData],

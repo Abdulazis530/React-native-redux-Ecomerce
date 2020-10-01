@@ -63,15 +63,15 @@ router.post('/', helpers.authenticateToken, async (req, res) => {
       return newImageName
     })
 
-    const product = await models.AddsProducts.create({ 
-        title,
-        rate:Number(rate),
-        description,
-        price,
-        brand,
-        detail,
-        likes,
-        images:renamedImages,
+    const product = await models.AddsProducts.create({
+      title,
+      rate: Number(rate),
+      description,
+      price,
+      brand,
+      detail,
+      likes,
+      images: renamedImages,
     })
 
     res.json(product);

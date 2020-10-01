@@ -6,6 +6,7 @@ import 'react-native-gesture-handler';
 import Home from './src/components/Home';
 import DetailProduct from './src/components/DetailProduct';
 import AddForm from './src/containers/AddForm';
+import LoginForm from './src/containers/LoginForm';
 import rootReducer from './src/reducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -36,6 +37,12 @@ const RootStack = createStackNavigator({
   },
   Detail: {
     screen: DetailProduct,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  LogIn: {
+    screen: LoginForm,
     navigationOptions: {
       headerShown: false,
     },

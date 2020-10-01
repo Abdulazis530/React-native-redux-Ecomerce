@@ -5,36 +5,81 @@ import CustomHeader from './CustomHeader';
 import { Footer, FooterTab, Button } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import LoginForm from '../containers/LoginForm';
 import SignUpForm from '../containers/SignUpForm';
+import { getData } from '../helpers/asyncStorageHelper'
+import { connect } from 'react-redux'
+import { logOut } from '../actions';
 
-export default class Home extends Component {
+
+
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: '',
+    };
+  }
+
+  componentWillMount() {
+    console.log('willmount')
+    getData()
+      .then(res => this.setState({ token: res }))
+
+  }
+  handleLogOut = async () => {
+    console.log('log out pressed');
+    this.props.logOut(this.state.token);
+    this.setState(state => ({ token: '' }))
+
+  }
+
   render() {
+    console.log('token inside render home:', this.state.token);
     return (
 
       <View style={styles.productBox}>
         <CustomHeader />
         <View style={styles.content}>
-          {/* <ProductList navigation={this.props.navigation} /> */}
-          <LoginForm navigation={this.props.navigation} />
+          <ProductList navigation={this.props.navigation} />
+          {/* <LoginForm navigation={this.props.navigation} /> */}
           {/* <SignUpForm /> */}
         </View>
 
         <Footer style={styles.footerParent}>
-          <FooterTab style={styles.footer}>
-            <Button vertical>
-              <MaterialIcons name={'add'} color="gold" size={30} onPress={() => this.props.navigation.navigate('Add')} />
-              <Text style={styles.whiteColor}>Add Product</Text>
-            </Button>
-            <Button vertical>
-              <MaterialIcons name={'home'} color="gold" size={30} />
-              <Text style={styles.whiteColor}>Home</Text>
-            </Button>
-            <Button vertical>
-              <AntDesign name={'logout'} color="gold" size={25} />
-              <Text style={styles.whiteColor}>Log Out</Text>
-            </Button>
-          </FooterTab>
+          {this.state.token ?
+            <FooterTab style={styles.footer}>
+              <Button vertical onPress={() => this.props.navigation.navigate('Add')}>
+                <MaterialIcons name={'add'} color="gold" size={30} />
+                <Text style={styles.whiteColor}>Add Product</Text>
+              </Button>
+              <Button vertical>
+                <MaterialIcons name={'home'} color="gold" size={30} />
+                <Text style={styles.whiteColor}>Home</Text>
+              </Button>
+              <Button vertical onPress={this.handleLogOut}>
+                <AntDesign name={'logout'} color="gold" size={25} />
+                <Text style={styles.whiteColor}>Log Out</Text>
+              </Button>
+            </FooterTab>
+            :
+            <FooterTab style={styles.footer}>
+              <Button vertical>
+                <Entypo name={'images'} color="gold" size={25} />
+                <Text style={styles.whiteColor}>Feed</Text>
+              </Button>
+              <Button vertical>
+                <MaterialIcons name={'home'} color="gold" size={30} />
+                <Text style={styles.whiteColor}>Home</Text>
+              </Button>
+              <Button vertical onPress={() => this.props.navigation.navigate('LogIn')}>
+                <AntDesign name={'login'} color="gold" size={25} />
+                <Text style={styles.whiteColor}>Log In</Text>
+              </Button>
+            </FooterTab>
+
+          }
         </Footer>
       </View>
     );
@@ -104,3 +149,14 @@ const styles = StyleSheet.create({
   },
 
 });
+
+
+const mapDispatchToProps = (dispatch) => ({
+  logOut: (token) => dispatch(logOut(token)),
+
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Home);

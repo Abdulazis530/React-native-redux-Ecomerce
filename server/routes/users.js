@@ -142,7 +142,7 @@ router.post('/check', async (req, res, next) => {
 
 router.get('/destroy', async (req, res, next) => {
   const token = req.header("Authorization")
-
+  console.log(token)
   let response = {
     logout: false
   };
@@ -160,6 +160,7 @@ router.get('/destroy', async (req, res, next) => {
       if (!user) return res.status(500).json(response)
 
       response.logout = true
+      console.log(response)
       res.status(200).json(response)
 
     } catch (error) {

@@ -1,34 +1,15 @@
 
-
-
-// start load chat data
-export const loadChatSuccess = (chats) => ({
-    type: 'LOAD_CHAT_SUCCESS',
-    chats,
-});
-
-export const loadChatFailure = () => ({
-    type: 'LOAD_CHAT_FAILURE',
-});
-
-export const loadChat = () => ({
-    type: 'LOAD_CHATS',
-});
-
-// end load chat data
-
-
-//Login
-
-export const logIn = data => ({
+/* Login */
+export const logIn = (email, password, navigation) => ({
     type: 'LOGIN',
-    data,
+    email,
+    password,
+    navigation,
 });
 
-//end of login
+/*end of login */
 
-//Sign Up
-
+/* Sign Up */
 export const signUpSuccess = response => ({
     type: 'SIGNUP_SUCESS',
     response,
@@ -44,7 +25,7 @@ export const signUpFailed = response => ({
     response,
 });
 
-//end of login
+/*end of Sign Up */
 
 
 // start load adds data
@@ -66,8 +47,10 @@ export const resetProducts = () => ({
 // end load adds data
 
 
-
-
+/******** Log Out ************/
+export const logOut = (token) => ({
+    type: 'LOG_OUT', token
+})
 
 
 

@@ -1,7 +1,7 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 import * as actions from '../actions';
 import axios from 'axios';
-import { storeData, getData } from '../helpers/asyncStorageHelper';
+import { storeData, getData, removeToken } from '../helpers/asyncStorageHelper';
 
 
 const API_URL = 'http://192.168.1.8:3001/api/';
@@ -39,7 +39,15 @@ const logInUser = async (path, params) =>
         .then(response => response.data)
         .catch(err => {
             throw err;
-        })
+        });
+
+
+const logOutUser = async (path, params) =>
+    await request.get(path, params)
+        .then(response => response.data)
+        .catch(err => {
+            throw err;
+        });
 
 
 // const signUpUser = async (path) =>
@@ -82,13 +90,33 @@ let PATH_USER = 'users';
 
 
 function* logIn(payload) {
-    const { data: { email, password } } = payload;
+    const { email, password, navigation } = payload;
     try {
         const response = yield call(logInUser, `${PATH_USER}/login`, { email, password });
-        storeData(response.token)
+        console.log('login:', response)
+        storeData(response.token);
+        navigation.navigate('Home');
     } catch (error) {
         console.log(error);
         alert('Email or Password wrong')
+        navigation.navigate('LogIn');
+
+    }
+}
+
+function* logout(payload) {
+    const { token } = payload;
+    try {
+        const headers = { Authorization: token };
+        const response = yield call(logOutUser, `${PATH_USER}/destroy`, { headers });
+
+        if (response.logout) {
+            removeToken();
+        }
+
+    } catch (error) {
+        console.log(error);
+        alert('Something went wrong')
     }
 }
 
@@ -112,6 +140,7 @@ export default function* rootSaga() {
         takeEvery('LOAD_CHATS', loadChat),
         takeEvery('LOAD_PRODUCTS', loadProducts),
         takeEvery('LOGIN', logIn),
+        takeEvery('LOG_OUT', logout),
         // takeEvery('SIGNUP',signUp)
     ]);
 }
