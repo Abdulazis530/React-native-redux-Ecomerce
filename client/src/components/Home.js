@@ -15,14 +15,32 @@ import { logOut } from '../actions';
 
 
 class Home extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      token: ''
 
+    }
+  }
+  async componentDidMount() {
+    console.log('ngantuk')
+    const data = await getData()
+    console.log('test', data)
+    this.setState({ token: data })
+    console.log('willmount:', this.state)
+  }
   handleLogOut = async () => {
-    console.log('log out pressed');
-    this.props.logOut(this.props.token);
+
+    this.props.logOut(this.state.token, () => {
+      this.setState((state) => ({
+        token: '',
+      }))
+    });
   }
 
   //if cannot navigation into the see detail you need to add super above
   render() {
+
     console.log('token inside render home:', this.props.token);
     return (
 
@@ -35,7 +53,7 @@ class Home extends Component {
         </View>
 
         <Footer style={styles.footerParent}>
-          {this.props.token ?
+          {this.state.token ?
             <FooterTab style={styles.footer}>
               <Button vertical onPress={() => this.props.navigation.navigate('Add')}>
                 <MaterialIcons name={'add'} color="gold" size={30} />
@@ -60,7 +78,7 @@ class Home extends Component {
                 <MaterialIcons name={'home'} color="gold" size={30} />
                 <Text style={styles.whiteColor}>Home</Text>
               </Button>
-              <Button vertical onPress={() => this.props.navigation.navigate('LogIn')}>
+              <Button vertical onPress={() => this.props.navigation.replace('LogIn')}>
                 <AntDesign name={'login'} color="gold" size={25} />
                 <Text style={styles.whiteColor}>Log In</Text>
               </Button>
@@ -138,16 +156,13 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = (state) => ({
-  token: state.users.token,
 
-});
 const mapDispatchToProps = (dispatch) => ({
-  logOut: (token) => dispatch(logOut(token)),
+  logOut: (token, cb) => dispatch(logOut(token, cb)),
 
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Home);

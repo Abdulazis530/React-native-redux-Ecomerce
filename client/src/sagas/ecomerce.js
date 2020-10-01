@@ -93,32 +93,38 @@ function* logIn(payload) {
     const { email, password, navigation } = payload;
     try {
         const response = yield call(logInUser, `${PATH_USER}/login`, { email, password });
-        storeData(response.token);
-        yield put(actions.logInSuccess(response.token));
-        navigation.navigate('Home');
+        console.log('KENAPA BUG:', response)
+        if (response.token) {
+            console.log('check response:', response)
+            storeData(response.token);
+        } else if (response[1][0].token) {
+            console.log('check response2:', response)
+            storeData(response[1][0].token);
+        }
+        navigation.replace('Home');
+
+
     } catch (error) {
         console.log(error);
         alert('Email or Password wrong')
-        yield put(actions.logInFail());
         navigation.navigate('LogIn');
 
     }
 }
 
 function* logout(payload) {
-    const { token } = payload;
+    const { token, cb } = payload;
     try {
         const headers = { Authorization: token };
         const response = yield call(logOutUser, `${PATH_USER}/destroy`, { headers });
 
         if (response.logout) {
             removeToken();
-            yield put(actions.logOutSuccess());
         }
+        cb()
 
     } catch (error) {
         console.log(error);
-        yield put(actions.logOutFail());
         alert('Something went wrong')
     }
 }

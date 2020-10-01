@@ -18,7 +18,6 @@ class ProductList extends Component {
     }
 
     componentWillUnmount() {
-        console.log('willInmount')
         this.props.resetProducts();
     }
     fetchData = () => {
@@ -32,7 +31,6 @@ class ProductList extends Component {
     }
 
     render() {
-        console.log(this.props.products)
         return (
             <View >
                 <FlatList

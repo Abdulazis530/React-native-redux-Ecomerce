@@ -9,7 +9,7 @@ export const logIn = (email, password, navigation) => ({
 
 export const logInSuccess = (token) => ({
     type: 'LOG_IN_SUCCESS',
-    token
+    token,
 });
 export const logInFail = () => ({
     type: 'LOG_IN_FAILED',
@@ -37,8 +37,8 @@ export const signUpFailed = response => ({
 /*end of Sign Up */
 
 /******** Log Out ************/
-export const logOut = (token) => ({
-    type: 'LOG_OUT', token,
+export const logOut = (token, cb) => ({
+    type: 'LOG_OUT', token, cb
 });
 export const logOutSuccess = () => ({
     type: 'LOG_OUT_SUCCESS',
