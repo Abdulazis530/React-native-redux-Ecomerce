@@ -15,28 +15,47 @@ class LoginForm extends Component {
             email: '',
             password: '',
             showPassword: false,
+            errorEmail: '',
+            errorPassword: '',
+
         };
     }
     handleChangeEmail = (value) => {
-        console.log(value);
+        this.setState({
+            errorEmail: '',
+        });
         this.setState({ email: value });
     }
 
     handleChangePassword = (value) => {
+        this.setState({
+            errorPassword: '',
+        });
         this.setState({ password: value });
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.props.navigation)
-        console.log(this.state)
-        this.props.logIn(this.state);
-        console.log('tayo')
+        if (!this.state.email) {
+            this.setState({
+                errorEmail: 'Email cannot be empty',
+            });
+        }
+        if (!this.state.password) {
+            this.setState({
+                errorPassword: 'Password cannot be empty',
+            });
+        }
+
+        if (this.state.email && this.state.password) {
+            this.props.logIn(this.state);
+        }
+
     }
     toggleEye = () => {
         this.setState(state => ({
             showPassword: !state.showPassword,
-        }))
+        }));
     }
     render() {
         return (
@@ -65,6 +84,7 @@ class LoginForm extends Component {
                                         placeholder="Email"
                                         onChangeText={this.handleChangeEmail}
                                     />
+                                    {this.state.errorEmail ? <Text style={styles.error}>{this.state.errorEmail}</Text> : <Text></Text>}
                                 </View>
 
                                 <View style={styles.containerInput}>
@@ -74,6 +94,9 @@ class LoginForm extends Component {
                                         secureTextEntry={this.state.showPassword ? false : true}
                                     />
                                     <Text style={styles.label}>Password</Text>
+                                    {this.state.errorPassword ? <Text style={styles.error}>{this.state.errorPassword}</Text> : <Text></Text>}
+
+
                                     <TouchableOpacity activeOpacity={1} style={styles.iconEye} onPress={this.toggleEye}>
                                         <FontAwesome5 name={this.state.showPassword ? "eye-slash" : "eye"} size={20} color="black" />
                                     </TouchableOpacity>
@@ -166,6 +189,13 @@ const styles = StyleSheet.create({
         right: 10,
         bottom: 10,
     },
+    error: {
+        position: 'absolute',
+        top: 10,
+        left: 80,
+        fontSize: 12,
+        color: 'red'
+    }
 });
 
 const mapDispatchToProps = (dispatch) => ({
