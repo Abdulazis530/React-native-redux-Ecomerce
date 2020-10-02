@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { Button, Container, Content, Card, CardItem, Header, Body, Left, Right, Picker } from 'native-base';
+import { Button, Container, Content, Card, CardItem, Header, Body, Left, Right } from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { signUp } from '../actions';

@@ -1,10 +1,10 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 import * as actions from '../actions';
 import axios from 'axios';
-import { storeData, getData, removeToken } from '../helpers/asyncStorageHelper';
+import { storeData, removeToken } from '../helpers/asyncStorageHelper';
 
 
-const API_URL = 'http://192.168.1.8:3001/api/';
+const API_URL = 'http://192.168.1.7:3001/api/';
 
 const request = axios.create({
     baseURL: API_URL,
@@ -19,20 +19,12 @@ const read = async (path) =>
         });
 
 
-const add = async (path, params) =>
-    await request.post(path, params)
-        .then(response => response.data)
-        .catch(err => {
-            throw err;
-        });
-
-const read2 = async (path) =>
-    await request.get(path)
-        .then(response => response.data)
-        .catch(err => {
-            throw err;
-        });
-
+// const add = async (path, params) =>
+//     await request.post(path, params)
+//         .then(response => response.data)
+//         .catch(err => {
+//             throw err;
+//         });
 
 const logInUser = async (path, params) =>
     await request.post(path, params)
@@ -64,7 +56,7 @@ function* loadProducts(payload) {
     const { limit, page } = payload;
     const QUERY_PATH = `${PATH}?limit=${limit}&page=${page}`;
     try {
-        const data = yield call(read2, QUERY_PATH);
+        const data = yield call(read, QUERY_PATH);
         yield put(actions.loadProductsSuccess(data));
     } catch (error) {
         console.log(error);

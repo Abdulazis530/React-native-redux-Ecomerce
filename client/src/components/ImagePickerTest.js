@@ -49,7 +49,7 @@ export default class App extends React.Component {
             }
         });
     }
-    handleTest = (item) => {
+    handleDelete = (item) => {
         console.log('THIS IS ITEM:', item);
         // THIS IS ITEM: {fileName: "image-1ce34eea-c798-44e2-ad1e-e0d2dd84d757.jpg", fileSize: 129327, width: 444, originalRotation: 0, uri: "file:///storage/emulated/0/Pictures/image-1ce34eea-c798-44e2-ad1e-e0d2dd84d757.jpg", …}
         this.setState(state => ({
@@ -70,7 +70,7 @@ export default class App extends React.Component {
                 <View style={styles.container}>
                     {this.state.avatarSource.length > 0 ? this.state.avatarSource.map((image, index) => (
                         <View>
-                            <TouchableOpacity style={styles.cancel} onPress={() => this.handleTest(image)}>
+                            <TouchableOpacity style={styles.cancel} onPress={() => this.handleDelete(image)}>
                                 <FontAwesome name={'remove'} color="red" size={30} />
                             </TouchableOpacity>
                             <Image style={[styles.avatar, styles.imageStyle]} source={{ uri: image.uri }} />
