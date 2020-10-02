@@ -91,7 +91,6 @@ class SignUp extends Component {
             this.passwordValidation(this.state.password) &&
             this.passwordValidation(this.state.retypepassword)
         ) {
-            alert('SUBMITED')
             this.props.signUp(this.state.email, this.state.password, this.state.retypepassword, this.props.navigation);
         }
 

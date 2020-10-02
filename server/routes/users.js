@@ -22,6 +22,7 @@ router.post('/register', async (req, res, next) => {
 
   let response = { data: {}, token: null, message: "" }
   const { email, password, retypepassword } = req.body
+  console.log(req.body)
 
   if (password === retypepassword) {
     try {
@@ -42,10 +43,8 @@ router.post('/register', async (req, res, next) => {
         password,
         token
       })
-      responese.data = { email }
-      response.token = token
-      responese.message = 'Log In Success'
-      res.status(201).json(response)
+
+      res.status(201).json(result)
     } catch (error) {
       console.log(error)
       res.status(500).json(response)

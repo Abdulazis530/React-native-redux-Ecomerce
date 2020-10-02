@@ -22,12 +22,10 @@ class Home extends Component {
 
     }
   }
-  async componentDidMount() {
-    console.log('ngantuk')
-    const data = await getData()
-    console.log('test', data)
+  async componentWillMount() {
+    console.log('trigered')
+    const data = await getData();
     this.setState({ token: data })
-    console.log('willmount:', this.state)
   }
   handleLogOut = async () => {
 

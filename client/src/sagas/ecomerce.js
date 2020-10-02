@@ -50,12 +50,12 @@ const logOutUser = async (path, params) =>
         });
 
 
-// const signUpUser = async (path) =>
-// await request.get(path)
-//     .then(response => response.data)
-//     .catch(err => {
-//         throw err;
-//     });
+const signUpUser = async (path, params) =>
+    await request.post(path, params)
+        .then(response => response.data)
+        .catch(err => {
+            throw err;
+        });
 
 let PATH = 'products';
 
@@ -72,20 +72,6 @@ function* loadProducts(payload) {
     }
 }
 
-function* loadChat() {
-
-    try {
-        const data = yield call(read, PATH);
-
-        yield put(actions.loadChatSuccess(data));
-    } catch (error) {
-        console.log(error);
-        yield put(actions.loadChatFailure());
-    }
-}
-
-
-
 let PATH_USER = 'users';
 
 
@@ -93,7 +79,6 @@ function* logIn(payload) {
     const { email, password, navigation } = payload;
     try {
         const response = yield call(logInUser, `${PATH_USER}/login`, { email, password });
-        console.log('KENAPA BUG:', response)
         if (response.token) {
             console.log('check response:', response)
             storeData(response.token);
@@ -106,8 +91,27 @@ function* logIn(payload) {
 
     } catch (error) {
         console.log(error);
-        alert('Email or Password wrong')
+        alert('Email or Already in Use')
         navigation.navigate('LogIn');
+
+    }
+}
+function* signUp(payload) {
+    const { email, password, retypepassword, navigation } = payload;
+
+    try {
+        const response = yield call(signUpUser, `${PATH_USER}/register`, { email, password, retypepassword });
+        console.log(response)
+        if (response.token) {
+            console.log('here cek signup')
+            storeData(response.token);
+        }
+        navigation.push('Home');
+
+    } catch (error) {
+        console.log(error);
+        alert('Email or Password wrong')
+        navigation.navigate('SignUp');
 
     }
 }
@@ -129,28 +133,14 @@ function* logout(payload) {
     }
 }
 
-// function* signUp(payload) {
-//     const { data:{email, password,retypepassword} } = payload;
-
-//     const data = yield call(signUpUser, PATH_USER , {email, password });
-//     try {
-//         console.log(email, password,retypepassword);
-//         yield put(actions.signUpSuccess(data));
-//         //history.push('/chats')
-//     } catch (error) {
-//         console.log(error);
-//         yield put(actions.signUpFailed(data));
-//     }
-// }
 
 
 export default function* rootSaga() {
     yield all([
-        takeEvery('LOAD_CHATS', loadChat),
         takeEvery('LOAD_PRODUCTS', loadProducts),
         takeEvery('LOGIN', logIn),
         takeEvery('LOG_OUT', logout),
-        // takeEvery('SIGNUP',signUp)
+        takeEvery('SIGNUP', signUp),
     ]);
 }
 

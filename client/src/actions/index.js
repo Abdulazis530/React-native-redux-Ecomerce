@@ -7,32 +7,20 @@ export const logIn = (email, password, navigation) => ({
     navigation,
 });
 
-export const logInSuccess = (token) => ({
-    type: 'LOG_IN_SUCCESS',
-    token,
-});
-export const logInFail = () => ({
-    type: 'LOG_IN_FAILED',
-});
-
 /*end of login */
 
 
 /* Sign Up */
-export const signUpSuccess = response => ({
-    type: 'SIGNUP_SUCESS',
-    response,
-});
 
-export const signUp = data => ({
+export const signUp = (email, password, retypepassword, navigation) => ({
     type: 'SIGNUP',
-    data,
+    email,
+    password,
+    retypepassword,
+    navigation,
 });
 
-export const signUpFailed = response => ({
-    type: 'SIGNUP_FAILED',
-    response,
-});
+
 
 /*end of Sign Up */
 
@@ -40,12 +28,7 @@ export const signUpFailed = response => ({
 export const logOut = (token, cb) => ({
     type: 'LOG_OUT', token, cb
 });
-export const logOutSuccess = () => ({
-    type: 'LOG_OUT_SUCCESS',
-});
-export const logOutFail = () => ({
-    type: 'LOG_OUT_FAILED',
-});
+
 
 
 // start load adds data
@@ -65,22 +48,6 @@ export const resetProducts = () => ({
     type: 'RESET_PRODUCTS',
 });
 // end load adds data
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // start post chat data
 
