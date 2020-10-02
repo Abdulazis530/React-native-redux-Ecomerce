@@ -7,6 +7,7 @@ import Home from './src/components/Home';
 import DetailProduct from './src/components/DetailProduct';
 import AddForm from './src/containers/AddForm';
 import LoginForm from './src/containers/LoginForm';
+import SignUpForm from './src/containers/SignUpForm';
 import rootReducer from './src/reducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -43,6 +44,12 @@ const RootStack = createStackNavigator({
   },
   LogIn: {
     screen: LoginForm,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  SignUp: {
+    screen: SignUpForm,
     navigationOptions: {
       headerShown: false,
     },

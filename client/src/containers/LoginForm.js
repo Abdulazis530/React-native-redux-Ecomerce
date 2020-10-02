@@ -111,7 +111,7 @@ class LoginForm extends Component {
                                     <AntDesign name="login" size={30} color="white" />
                                     <Text style={styles.textIcon}>Log In</Text>
                                 </Button>
-                                <Button block iconLeft style={{ marginTop: 10 }} onPress={this.handleSubmit}>
+                                <Button block iconLeft style={{ marginTop: 10 }} onPress={() => this.props.navigation.navigate('SignUp')}>
                                     <FontAwesome5 name="user-plus" size={20} color="white" />
                                     <Text style={styles.textIcon}>Create New Account</Text>
                                 </Button>
