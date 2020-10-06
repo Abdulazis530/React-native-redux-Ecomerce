@@ -10,11 +10,9 @@ import { getData } from '../helpers/asyncStorageHelper';
 import { connect } from 'react-redux';
 import { logOut } from '../actions';
 
-
-
 class Home extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       token: '',
     };
@@ -25,7 +23,6 @@ class Home extends Component {
     this.setState({ token: data });
   }
   handleLogOut = async () => {
-
     this.props.logOut(this.props.token);
   }
 
@@ -41,7 +38,7 @@ class Home extends Component {
         <Footer style={styles.footerParent}>
           {this.props.token || this.state.token ?
             <FooterTab style={styles.footer}>
-              <Button vertical onPress={() => this.props.navigation.navigate('Add')}>
+              <Button vertical onPress={() => this.props.navigation.replace('Add')}>
                 <MaterialIcons name={'add'} color="gold" size={30} />
                 <Text style={styles.whiteColor}>Add Product</Text>
               </Button>

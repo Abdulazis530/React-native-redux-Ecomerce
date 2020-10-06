@@ -66,10 +66,10 @@ export const resetProducts = () => ({
 
 // start post chat data
 
-export const addProductSuccess = (product) => ({
-    type: 'ADD_PRODUCT_SUCCESS',
-    product,
-});
+// export const addProductSuccess = (product) => ({
+//     type: 'ADD_PRODUCT_SUCCESS',
+//     product,
+// });
 
 export const addProduct = (newProduct, token, navigation) => ({
     type: 'ADD_PRODUCT',
@@ -89,4 +89,7 @@ export const addImage = (response) => ({
 export const cancelAddImage = (image) => ({
     type: 'CANCEL_ADD_IMAGE',
     image,
+});
+export const resetImage = () => ({
+    type: 'RESET_IMAGE',
 });

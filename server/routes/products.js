@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 
     const dataProducts = await models.AddsProducts.findAndCountAll({
       order: [
-        ['createdAt', 'ASC']
+        ['createdAt', 'DESC']
       ],
       limit,
       offset
@@ -50,31 +50,23 @@ router.get('/:id', async (req, res) => {
 router.post('/', authenticateToken, upload.array("images", 10), async (req, res) => {
 
   try {
+
     const { title, rate, description, price, brand, detail, likes } = req.body
-    // console.log(req.body)
-    console.log(req.body)
     const images = req.files
-    console.log(images)
+    const newImages = images.map(image => image.filename)
 
-    // const renamedImages = images.map(image => {
-    //   const newImageName = image.name.toLowerCase().replace("", Date.now()).split(' ').join('-')
-    //   /* moving each renamedImage to public/images */
-    //   image.mv(path.join(__dirname, "..", "public", "images", newImageName))
-    //   return newImageName
-    // })
+    const product = await models.AddsProducts.create({
+      title,
+      rate: Number(rate),
+      description,
+      price,
+      brand,
+      detail,
+      likes,
+      images: newImages,
+    })
 
-    // const product = await models.AddsProducts.create({
-    //   title,
-    //   rate: Number(rate),
-    //   description,
-    //   price,
-    //   brand,
-    //   detail,
-    //   likes,
-    //   images: renamedImages,
-    // })
-
-    // res.json(product);
+    res.json(product);
   } catch (error) {
     console.log(error)
     res.status(500).json(error)

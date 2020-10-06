@@ -4,9 +4,9 @@ import { Button, Container, Content, Card, CardItem, Header, Body, Left, Right, 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import ImageExtractor from '../containers/ImageExtractor';
-import { addProduct } from '../actions'
-import { connect } from 'react-redux'
-import { getData } from '../helpers/asyncStorageHelper'
+import { addProduct, resetImage } from '../actions';
+import { connect } from 'react-redux';
+import { getData } from '../helpers/asyncStorageHelper';
 
 class AddForm extends Component {
     constructor(props) {
@@ -46,10 +46,13 @@ class AddForm extends Component {
         const token = await getData();
         const newProduct = {
             ...this.state,
-            images: this.props.productImages
-        }
-        console.log('HANDEL SUBMIT ADD FORM:', newProduct)
-        this.props.addProduct(newProduct, token, this.props.navigation)
+            images: this.props.productImages,
+        };
+
+        this.props.addProduct(newProduct, token, this.props.navigation);
+    }
+    componentWillUnmount() {
+        this.props.resetImage();
     }
     render() {
 
@@ -210,7 +213,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    addProduct: (newProduct, token, navigation) => dispatch(addProduct(newProduct, token, navigation))
+    addProduct: (newProduct, token, navigation) => dispatch(addProduct(newProduct, token, navigation)),
+    resetImage: () => dispatch(resetImage()),
 });
 
 

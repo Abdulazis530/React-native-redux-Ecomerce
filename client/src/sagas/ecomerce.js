@@ -60,7 +60,6 @@ let PATH = 'products';
 
 function* loadProducts(payload) {
     const { limit, page } = payload;
-    console.log(payload)
     const QUERY_PATH = `${PATH}?limit=${limit}&page=${page}`;
 
     try {
@@ -76,16 +75,15 @@ function* addProduct(payload) {
     const formData = new FormData();
     for (const key in newProduct) {
         if (key === 'images') {
-            newProduct[key].forEach((image, index) => {
+            newProduct[key].forEach(image => {
                 formData.append(key, {
                     uri: image.uri,
                     type: image.type,
-                    name: 'image'
+                    name: 'image',
                 });
             });
         } else {
             formData.append(key, newProduct[key]);
-
         }
     }
     const config = {
@@ -97,12 +95,12 @@ function* addProduct(payload) {
     };
     const product = yield call(add, PATH, formData, config);
     try {
-        console.log('products:', product)
-        yield put(actions.addProductSuccess(product));
-        navigation.navigate('Home');
+        console.log('products:', product);
+        // yield put(actions.addProductSuccess(product));
+        navigation.replace('Home');
     } catch (error) {
         console.log(error);
-        alert('SOMETHING WHEN WRONG')
+        alert('SOMETHING WHEN WRONG');
         navigation.navigate('Add');
 
     }
@@ -115,15 +113,13 @@ function* logIn(payload) {
     const { email, password, navigation } = payload;
     try {
         const response = yield call(logInUser, `${PATH_USER}/login`, { email, password });
-        console.log('check response:', response)
-
         if (response.token) {
             storeData(response.token);
-            yield put(actions.logInSuccess(response.token))
+            yield put(actions.logInSuccess(response.token));
 
         } else if (response[1][0].token) {
             storeData(response[1][0].token);
-            yield put(actions.logInSuccess(response.token))
+            yield put(actions.logInSuccess(response.token));
 
         }
         navigation.replace('Home');
@@ -141,17 +137,16 @@ function* signUp(payload) {
 
     try {
         const response = yield call(signUpUser, `${PATH_USER}/register`, { email, password, retypepassword });
-        console.log(response)
         if (response.token) {
-            console.log('here cek signup')
+            console.log('here cek signup');
             storeData(response.token);
-            yield put(actions.signUpSuccess(response.token))
+            yield put(actions.signUpSuccess(response.token));
         }
         navigation.replace('Home');
 
     } catch (error) {
         console.log(error);
-        alert('Email or Password wrong')
+        alert('Email or Password wrong');
         yield put(actions.signUpFail());
         navigation.navigate('SignUp');
 
@@ -166,15 +161,14 @@ function* logout(payload) {
 
         if (response.logout) {
             removeToken();
-            yield put(actions.logOutSuccess())
+            yield put(actions.logOutSuccess());
         }
 
     } catch (error) {
         console.log(error);
-        alert('Something went wrong')
+        alert('Something went wrong');
     }
 }
-
 
 
 export default function* rootSaga() {

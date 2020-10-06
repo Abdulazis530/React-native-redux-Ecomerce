@@ -54,7 +54,7 @@ class ImageExtractor extends React.Component {
 
         return (
             <View >
-                <View style={[styles.containerAddImage, { marginBottom: 20 }]} >
+                <View style={styles.containerAddImage} >
                     <Button block iconLeft style={styles.buttonAddImages} onPress={this.selectPhotoTapped.bind(this)}>
                         <MaterialCommunityIcons name="image-plus" size={30} color="white" />
                         <Text style={styles.textIcon}>ADD IMAGES</Text>
@@ -70,8 +70,8 @@ class ImageExtractor extends React.Component {
 
                         </View>
                     ))
-                        : <View style={[styles.avatar, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
-                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>Put Your Image Here</Text>
+                        : <View style={[styles.avatar, styles.avatarHidden]}>
+                            <Text style={styles.textNoImage}>Put Your Image Here</Text>
                         </View>
 
                     }
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     containerAddImage: {
         flex: 1,
         width: '100%',
+        marginBottom: 20,
 
     },
     avatarContainer: {
@@ -118,18 +119,27 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
     },
+    avatarHidden: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    textNoImage: {
+        fontWeight: 'bold',
+        fontSize: 18,
+    },
     imageStyle: {
         borderColor: 'white',
         borderWidth: 2,
         resizeMode: 'cover',
         marginHorizontal: 10,
-        marginVertical: 10
+        marginVertical: 10,
     },
     cancel: {
         position: 'absolute',
         top: -5,
         right: 0,
-        zIndex: 10
+        zIndex: 10,
     },
     buttonAddImages: {
         backgroundColor: '#51adcf',
@@ -138,13 +148,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     productImages: state.images.productImages,
-})
+});
+
 const mapDispatchToProps = (dispatch) => ({
     addImage: (response) => dispatch(addImage(response)),
     cancelAddImage: (image) => dispatch(cancelAddImage(image)),
-})
+});
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ImageExtractor)
+)(ImageExtractor);
