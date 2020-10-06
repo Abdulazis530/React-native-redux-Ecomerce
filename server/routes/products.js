@@ -52,7 +52,7 @@ router.post('/', authenticateToken, upload.array("images", 10), async (req, res)
   try {
     const { title, rate, description, price, brand, detail, likes } = req.body
     // console.log(req.body)
-    console.log(req)
+    console.log(req.body)
     const images = req.files
     console.log(images)
 

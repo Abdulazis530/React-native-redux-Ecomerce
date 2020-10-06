@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-app.use(fileUpload())
+// app.use(fileUpload())
 
 app.use('/api/products', productsRouter);
 app.use('/api/users', usersRouter);

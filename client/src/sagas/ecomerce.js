@@ -4,7 +4,7 @@ import axios from 'axios';
 import { storeData, removeToken } from '../helpers/asyncStorageHelper';
 
 
-const API_URL = 'http://192.168.1.11:3001/api/';
+const API_URL = 'http://192.168.1.8:3001/api/';
 
 const request = axios.create({
     baseURL: API_URL,
@@ -79,12 +79,20 @@ function* addProduct(payload) {
     for (const key in newProduct) {
         if (key === 'images') {
             newProduct[key].forEach((image, index) => {
-                formData.append(`files-${index}`, JSON.stringify({
+                formData.append(key, {
                     uri: image.uri,
                     type: image.type,
-                    name: image.fileName
-                }));
+                    name: 'image'
+                });
             });
+
+            // formData.append(key, newProduct[key].map((image, index) => ({
+            //     uri: image.uri,
+            //     type: image.type,
+            //     name: `image ${index}`
+            //     // img: `data:image/jpeg;base64,${image.data}`
+            // })));
+
         } else {
             formData.append(key, newProduct[key]);
 
@@ -96,9 +104,9 @@ function* addProduct(payload) {
             'Content-Type': 'multipart/form-data',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`,
-        }
-    }
-    console.log('testconfigc', config)
+        },
+    };
+    console.log('testconfigc', config);
     const product = yield call(add, PATH, formData, config);
     try {
         console.log('products:', product)
