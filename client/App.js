@@ -3,7 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
 
-import Home from './src/components/Home';
+import Home from './src/containers/Home';
 import DetailProduct from './src/components/DetailProduct';
 import AddForm from './src/containers/AddForm';
 import LoginForm from './src/containers/LoginForm';

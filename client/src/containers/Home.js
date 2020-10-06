@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import ProductList from '../containers/ProductList';
-import CustomHeader from './CustomHeader';
+import ProductList from './ProductList';
+import CustomHeader from '../components/CustomHeader';
 import { Footer, FooterTab, Button } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
-import LoginForm from '../containers/LoginForm';
-import SignUpForm from '../containers/SignUpForm';
-import { getData } from '../helpers/asyncStorageHelper'
-import { connect } from 'react-redux'
+import { getData } from '../helpers/asyncStorageHelper';
+import { connect } from 'react-redux';
 import { logOut } from '../actions';
 
 
@@ -18,31 +16,26 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      token: ''
-
-    }
+      token: '',
+    };
   }
   async UNSAFE_componentWillMount() {
 
     const data = await getData();
-    this.setState({ token: data })
+    this.setState({ token: data });
   }
   handleLogOut = async () => {
 
-    this.props.logOut(this.props.token)
+    this.props.logOut(this.props.token);
   }
-  //if cannot navigation into the see detail you need to add super above
-  render() {
 
-    console.log('token inside render home:', this.props.token);
+  render() {
     return (
 
       <View style={styles.productBox}>
         <CustomHeader />
         <View style={styles.content}>
           <ProductList navigation={this.props.navigation} />
-          {/* <LoginForm navigation={this.props.navigation} /> */}
-          {/* <SignUpForm /> */}
         </View>
 
         <Footer style={styles.footerParent}>

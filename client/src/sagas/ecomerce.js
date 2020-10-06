@@ -72,9 +72,7 @@ function* loadProducts(payload) {
     }
 }
 function* addProduct(payload) {
-
     const { newProduct, token, navigation } = payload;
-    console.log('images', newProduct)
     const formData = new FormData();
     for (const key in newProduct) {
         if (key === 'images') {
@@ -85,20 +83,11 @@ function* addProduct(payload) {
                     name: 'image'
                 });
             });
-
-            // formData.append(key, newProduct[key].map((image, index) => ({
-            //     uri: image.uri,
-            //     type: image.type,
-            //     name: `image ${index}`
-            //     // img: `data:image/jpeg;base64,${image.data}`
-            // })));
-
         } else {
             formData.append(key, newProduct[key]);
 
         }
     }
-    console.log('FROMDATA:', formData)
     const config = {
         headers: {
             'Content-Type': 'multipart/form-data',
@@ -106,7 +95,6 @@ function* addProduct(payload) {
             'Authorization': `Bearer ${token}`,
         },
     };
-    console.log('testconfigc', config);
     const product = yield call(add, PATH, formData, config);
     try {
         console.log('products:', product)
