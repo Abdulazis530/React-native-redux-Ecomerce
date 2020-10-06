@@ -3,11 +3,12 @@ import { StyleSheet, View, Text, TextInput } from 'react-native';
 import { Button, Container, Content, Card, CardItem, Header, Body, Left, Right, Picker } from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import ImagePicker from '../components/ImagePickerTest'
+import ImageExtractor from '../containers/ImageExtractor';
+import { addProduct } from '../actions'
+import { connect } from 'react-redux'
+import { getData } from '../helpers/asyncStorageHelper'
 
-
-
-export default class AddForm extends Component {
+class AddForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,6 +18,7 @@ export default class AddForm extends Component {
             detail: '',
             description: '',
             rate: '1',
+
         };
     }
     handleChangeTitle = (value) => {
@@ -26,7 +28,7 @@ export default class AddForm extends Component {
         this.setState({ description: value });
     }
     handleChangePrice = (value) => {
-        this.setState({ price: value });
+        this.setState({ price: Number(value) });
     }
     handleChangeBrand = (value) => {
         this.setState({ brand: value });
@@ -39,12 +41,18 @@ export default class AddForm extends Component {
             rate: value,
         });
     }
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-
-        console.log(this.state)
+        const token = await getData();
+        const newProduct = {
+            ...this.state,
+            images: this.props.productImages
+        }
+        console.log('HANDEL SUBMIT ADD FORM:', newProduct)
+        this.props.addProduct(newProduct, token, this.props.navigation)
     }
     render() {
+
         return (
 
             <Container style={styles.container}>
@@ -125,7 +133,7 @@ export default class AddForm extends Component {
                                     </Picker>
 
                                 </View>
-                                <ImagePicker />
+                                <ImageExtractor />
 
                             </View>
                         </CardItem>
@@ -196,3 +204,16 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
 });
+
+const mapStateToProps = (state) => ({
+    productImages: state.images.productImages,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    addProduct: (newProduct, token, navigation) => dispatch(addProduct(newProduct, token, navigation))
+});
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps)(AddForm)

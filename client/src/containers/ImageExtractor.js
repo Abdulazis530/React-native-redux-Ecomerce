@@ -10,15 +10,13 @@ import { Button } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { cancelAddImage, addImage } from '../actions';
+import { connect } from 'react-redux';
 
-
-export default class App extends React.Component {
+class ImageExtractor extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            avatarSource: [],
-        };
         this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
     }
 
@@ -42,19 +40,14 @@ export default class App extends React.Component {
             } else if (response.customButton) {
                 console.log('User tapped custom button: ', response.customButton);
             } else {
-                this.setState(state => ({
-                    avatarSource: [...state.avatarSource, response],
-                }));
-                console.log(this.state);
+                this.props.addImage(response);
             }
         });
     }
-    handleDelete = (item) => {
-        console.log('THIS IS ITEM:', item);
+    handleDelete = (image) => {
+        console.log('THIS IS ITEM:', image);
         // THIS IS ITEM: {fileName: "image-1ce34eea-c798-44e2-ad1e-e0d2dd84d757.jpg", fileSize: 129327, width: 444, originalRotation: 0, uri: "file:///storage/emulated/0/Pictures/image-1ce34eea-c798-44e2-ad1e-e0d2dd84d757.jpg", …}
-        this.setState(state => ({
-            avatarSource: [...state.avatarSource.filter(stateItem => stateItem.uri !== item.uri)],
-        }));
+        this.props.cancelAddImage(image);
     }
 
     render() {
@@ -68,8 +61,8 @@ export default class App extends React.Component {
                     </Button>
                 </View>
                 <View style={styles.container}>
-                    {this.state.avatarSource.length > 0 ? this.state.avatarSource.map((image, index) => (
-                        <View>
+                    {this.props.productImages.length > 0 ? this.props.productImages.map((image, index) => (
+                        <View key={index}>
                             <TouchableOpacity style={styles.cancel} onPress={() => this.handleDelete(image)}>
                                 <FontAwesome name={'remove'} color="red" size={30} />
                             </TouchableOpacity>
@@ -140,5 +133,18 @@ const styles = StyleSheet.create({
     },
     buttonAddImages: {
         backgroundColor: '#51adcf',
-    }
+    },
 });
+
+const mapStateToProps = (state) => ({
+    productImages: state.images.productImages,
+})
+const mapDispatchToProps = (dispatch) => ({
+    addImage: (response) => dispatch(addImage(response)),
+    cancelAddImage: (image) => dispatch(cancelAddImage(image)),
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ImageExtractor)

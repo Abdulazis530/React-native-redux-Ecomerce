@@ -22,20 +22,15 @@ class Home extends Component {
 
     }
   }
-  async componentWillMount() {
-    console.log('trigered')
+  async UNSAFE_componentWillMount() {
+
     const data = await getData();
     this.setState({ token: data })
   }
   handleLogOut = async () => {
 
-    this.props.logOut(this.state.token, () => {
-      this.setState((state) => ({
-        token: '',
-      }))
-    });
+    this.props.logOut(this.props.token)
   }
-
   //if cannot navigation into the see detail you need to add super above
   render() {
 
@@ -51,7 +46,7 @@ class Home extends Component {
         </View>
 
         <Footer style={styles.footerParent}>
-          {this.state.token ?
+          {this.props.token || this.state.token ?
             <FooterTab style={styles.footer}>
               <Button vertical onPress={() => this.props.navigation.navigate('Add')}>
                 <MaterialIcons name={'add'} color="gold" size={30} />
@@ -154,13 +149,16 @@ const styles = StyleSheet.create({
 });
 
 
+const mapStateToProps = (state) => ({
+  token: state.users.token,
 
+});
 const mapDispatchToProps = (dispatch) => ({
-  logOut: (token, cb) => dispatch(logOut(token, cb)),
+  logOut: (token) => dispatch(logOut(token)),
 
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Home);

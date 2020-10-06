@@ -4,7 +4,7 @@ import axios from 'axios';
 import { storeData, removeToken } from '../helpers/asyncStorageHelper';
 
 
-const API_URL = 'http://192.168.1.7:3001/api/';
+const API_URL = 'http://192.168.1.11:3001/api/';
 
 const request = axios.create({
     baseURL: API_URL,
@@ -19,12 +19,17 @@ const read = async (path) =>
         });
 
 
-// const add = async (path, params) =>
-//     await request.post(path, params)
-//         .then(response => response.data)
-//         .catch(err => {
-//             throw err;
-//         });
+const add = async (path, params, config) =>
+    await request.post(path, params, config)
+        .then(response => {
+            console.log(response);
+            return response.data;
+        })
+        .catch(err => {
+            console.log('err add:', err);
+            throw err;
+        });
+
 
 const logInUser = async (path, params) =>
     await request.post(path, params)
@@ -52,15 +57,58 @@ const signUpUser = async (path, params) =>
 let PATH = 'products';
 
 // load
+
 function* loadProducts(payload) {
     const { limit, page } = payload;
+    console.log(payload)
     const QUERY_PATH = `${PATH}?limit=${limit}&page=${page}`;
+
     try {
-        const data = yield call(read, QUERY_PATH);
-        yield put(actions.loadProductsSuccess(data));
+        const products = yield call(read, QUERY_PATH);
+        yield put(actions.loadProductsSuccess(products));
     } catch (error) {
         console.log(error);
         yield put(actions.loadProductsFailure());
+    }
+}
+function* addProduct(payload) {
+
+    const { newProduct, token, navigation } = payload;
+    console.log('images', newProduct)
+    const formData = new FormData();
+    for (const key in newProduct) {
+        if (key === 'images') {
+            newProduct[key].forEach((image, index) => {
+                formData.append(`files-${index}`, JSON.stringify({
+                    uri: image.uri,
+                    type: image.type,
+                    name: image.fileName
+                }));
+            });
+        } else {
+            formData.append(key, newProduct[key]);
+
+        }
+    }
+    console.log('FROMDATA:', formData)
+    const config = {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        }
+    }
+    console.log('testconfigc', config)
+    const product = yield call(add, PATH, formData, config);
+    try {
+        console.log('products:', product)
+        yield put(actions.addProductSuccess(product));
+        navigation.navigate('Home');
+    } catch (error) {
+        console.log(error);
+        alert('SOMETHING WHEN WRONG')
+        navigation.navigate('Add');
+
     }
 }
 
@@ -71,19 +119,23 @@ function* logIn(payload) {
     const { email, password, navigation } = payload;
     try {
         const response = yield call(logInUser, `${PATH_USER}/login`, { email, password });
+        console.log('check response:', response)
+
         if (response.token) {
-            console.log('check response:', response)
             storeData(response.token);
+            yield put(actions.logInSuccess(response.token))
+
         } else if (response[1][0].token) {
-            console.log('check response2:', response)
             storeData(response[1][0].token);
+            yield put(actions.logInSuccess(response.token))
+
         }
         navigation.replace('Home');
 
-
     } catch (error) {
         console.log(error);
-        alert('Email or Already in Use')
+        alert('Email or passwor wrong');
+        yield put(actions.logInFail());
         navigation.navigate('LogIn');
 
     }
@@ -97,27 +149,29 @@ function* signUp(payload) {
         if (response.token) {
             console.log('here cek signup')
             storeData(response.token);
+            yield put(actions.signUpSuccess(response.token))
         }
-        navigation.push('Home');
+        navigation.replace('Home');
 
     } catch (error) {
         console.log(error);
         alert('Email or Password wrong')
+        yield put(actions.signUpFail());
         navigation.navigate('SignUp');
 
     }
 }
 
 function* logout(payload) {
-    const { token, cb } = payload;
+    const { token } = payload;
     try {
         const headers = { Authorization: token };
         const response = yield call(logOutUser, `${PATH_USER}/destroy`, { headers });
 
         if (response.logout) {
             removeToken();
+            yield put(actions.logOutSuccess())
         }
-        cb()
 
     } catch (error) {
         console.log(error);
@@ -133,7 +187,9 @@ export default function* rootSaga() {
         takeEvery('LOGIN', logIn),
         takeEvery('LOG_OUT', logout),
         takeEvery('SIGNUP', signUp),
+        takeEvery('ADD_PRODUCT', addProduct),
     ]);
 }
+
 
 

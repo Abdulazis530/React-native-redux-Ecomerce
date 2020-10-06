@@ -1,4 +1,4 @@
-const SERVER = 'http://192.168.1.7:3001/';
+const SERVER = 'http://192.168.1.13:3001/';
 import numToRupiah from '../helpers/rupiah';
 
 const products = (state = { totalPage: 0, data: [] }, action) => {
@@ -18,6 +18,16 @@ const products = (state = { totalPage: 0, data: [] }, action) => {
             };
         case 'RESET_PRODUCTS':
             return { totalPage: 0, data: [] };
+        case 'ADD_PRODUCT_SUCCESS':
+            const imagesWidthDirection = action.product.data.images(image => `${SERVER}images/${image}`);
+            action.product.data.images = imagesWidthDirection
+            return {
+                data: [
+                    action.product.data,
+                    ...state.data,
+                ],
+                totalPage: state.totalPage,
+            };
         case 'LOAD_PRODUCTS_FAILURE':
         default:
             return state;

@@ -31,6 +31,7 @@ class ProductList extends Component {
     }
 
     render() {
+        console.log(this.props.products);
         return (
             <View >
                 <FlatList

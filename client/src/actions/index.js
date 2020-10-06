@@ -1,17 +1,26 @@
 
 /* Login */
+export const logInSuccess = (token) => ({
+    type: 'LOGIN_SUCCESS',
+    token
+})
 export const logIn = (email, password, navigation) => ({
     type: 'LOGIN',
     email,
     password,
     navigation,
 });
+export const logInFail = () => ({
+    type: 'LOGIN_FAILED',
 
+});
 /*end of login */
 
-
 /* Sign Up */
-
+export const signUpSuccess = (token) => ({
+    type: 'SIGNUP_SUCCESS',
+    token,
+});
 export const signUp = (email, password, retypepassword, navigation) => ({
     type: 'SIGNUP',
     email,
@@ -19,17 +28,23 @@ export const signUp = (email, password, retypepassword, navigation) => ({
     retypepassword,
     navigation,
 });
-
-
-
+export const signUpFail = () => ({
+    type: 'SIGNUP_FAILED',
+});
 /*end of Sign Up */
 
 /******** Log Out ************/
-export const logOut = (token, cb) => ({
-    type: 'LOG_OUT', token, cb
+export const logOutSuccess = () => ({
+    type: 'LOG_OUT_SUCCESS',
 });
 
+export const logOut = (token) => ({
+    type: 'LOG_OUT', token,
+});
 
+export const logOutFail = () => ({
+    type: 'LOG_OUT_FAILED'
+});
 
 // start load adds data
 export const loadProductsSuccess = (products) => ({
@@ -51,20 +66,27 @@ export const resetProducts = () => ({
 
 // start post chat data
 
-export const postChatSuccess = (chats) => ({
-    type: 'POST_CHAT_SUCCESS',
-    chats,
+export const addProductSuccess = (product) => ({
+    type: 'ADD_PRODUCT_SUCCESS',
+    product,
 });
 
-export const postChatFailure = (id) => ({
-    type: 'POST_CHAT_FAILURE', id,
+export const addProduct = (newProduct, token, navigation) => ({
+    type: 'ADD_PRODUCT',
+    newProduct,
+    token,
+    navigation,
 });
 
-export const postChatRedux = (id, name, message) => ({
-    type: 'POST_CHAT', id, name, message,
+
+/*Handiling image */
+
+export const addImage = (response) => ({
+    type: 'ADD_IMAGE',
+    response,
 });
 
-
-export const postChat = (name, message) => ({
-    type: 'ADD_CHAT', name, message,
+export const cancelAddImage = (image) => ({
+    type: 'CANCEL_ADD_IMAGE',
+    image,
 });

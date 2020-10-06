@@ -2,10 +2,8 @@ require('dotenv').config()
 const express = require('express');
 const router = express.Router();
 const models = require('../models/index')
-const path = require('path');
-const secret = process.env.ACCESS_TOKEN_SECRET
-const API_SERVER = "http://192.168.1.13:3001";
-const helpers = require('../helpers/auth')
+const { authenticateToken, upload } = require('../helpers/index')
+
 
 
 /* GET products listing. */
@@ -49,32 +47,34 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', helpers.authenticateToken, async (req, res) => {
+router.post('/', authenticateToken, upload.array("images", 10), async (req, res) => {
 
   try {
     const { title, rate, description, price, brand, detail, likes } = req.body
-    const images = req.files.image
+    // console.log(req.body)
+    console.log(req)
+    const images = req.files
+    console.log(images)
 
+    // const renamedImages = images.map(image => {
+    //   const newImageName = image.name.toLowerCase().replace("", Date.now()).split(' ').join('-')
+    //   /* moving each renamedImage to public/images */
+    //   image.mv(path.join(__dirname, "..", "public", "images", newImageName))
+    //   return newImageName
+    // })
 
-    const renamedImages = images.map(image => {
-      const newImageName = image.name.toLowerCase().replace("", Date.now()).split(' ').join('-')
-      /* moving each renamedImage to public/images */
-      image.mv(path.join(__dirname, "..", "public", "images", newImageName))
-      return newImageName
-    })
+    // const product = await models.AddsProducts.create({
+    //   title,
+    //   rate: Number(rate),
+    //   description,
+    //   price,
+    //   brand,
+    //   detail,
+    //   likes,
+    //   images: renamedImages,
+    // })
 
-    const product = await models.AddsProducts.create({
-      title,
-      rate: Number(rate),
-      description,
-      price,
-      brand,
-      detail,
-      likes,
-      images: renamedImages,
-    })
-
-    res.json(product);
+    // res.json(product);
   } catch (error) {
     console.log(error)
     res.status(500).json(error)

@@ -164,7 +164,7 @@ router.get('/destroy', async (req, res, next) => {
 
     } catch (error) {
       console.log(error)
-      res.status(200).json(response)
+      res.status(500).json(response)
     }
   } else {
     res.status(500).json(response)
